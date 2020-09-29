@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  react-template-dev:
+    container_name: react-template_cont
+    image: react-template:dev
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - "./src:/app/src"
+    ports:
+      - "8080:8080"
+    networks: 
+      - react-template
+  react-template-prod:
+    container_name: react-prod_cont
+    image: react-template:prod
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - "80:80"
+    networks: 
+      - react-template
+networks: 
+  react-template:

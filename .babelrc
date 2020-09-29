@@ -1,0 +1,34 @@
+{
+  "presets": [
+    ["@babel/preset-env", { "modules": false }],
+    "@babel/preset-typescript",
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    // plugin-proposal-decorators is only needed if you're using experimental decorators in TypeScript
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "decoratorsBeforeExport": true
+      }
+    ],
+    "@babel/plugin-transform-runtime",
+    [
+      "module-resolver",
+      {
+        "root": [
+          "./app"
+        ],
+        "alias": {
+          "components": "./app/components",
+          "pages": "./app/pages",
+          "types": "./app/types",
+          "utils": "./app/utils",
+          "api": "./app/api",
+          "store": "./app/store",
+          "media": "./app/media"
+        }
+      }
+    ]
+  ]
+}
