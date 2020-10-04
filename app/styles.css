@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.notification-animation-enter {
+  @apply opacity-0 transform translate-x-8;
+}
+.notification-animation-enter-active {
+  @apply opacity-100 transform translate-x-0 transition-all duration-500 ease-in;
+}
+.notification-animation-exit {
+  @apply opacity-100 transform translate-x-0;
+}
+.notification-animation-exit-active {
+  @apply opacity-0 transform translate-x-8 transition-all duration-500 ease-out;
+}

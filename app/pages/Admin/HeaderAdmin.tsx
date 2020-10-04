@@ -1,12 +1,23 @@
 import React, { FC, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useActions } from 'kea';
 
 import { UserCircle, Logout, User } from 'components/Icons';
+
+import authLogic from 'store/auth';
 
 const HeaderAdmin: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const { logout } = useActions(authLogic);
+  const history = useHistory();
+
   const toggleMenu = () => {
     setIsOpen((prev) => !prev);
+  };
+  const handleLogout = () => {
+    logout();
+    history.push('/login');
   };
   return (
     <div className="flex items-center">
@@ -21,7 +32,7 @@ const HeaderAdmin: FC = () => {
             isOpen ? '' : 'hidden'
           }`}
         >
-          <div className="flex items-center hover:bg-gray-300 p-2 cursor-pointer">
+          <div className="flex items-center hover:bg-gray-300 p-2 cursor-pointer" onClick={handleLogout}>
             <span>
               <Logout />
             </span>

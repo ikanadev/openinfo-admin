@@ -1,12 +1,40 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useValues, useActions } from 'kea';
 
 import AdminImage from './AdminImage';
 
+import authLogic from 'store/auth';
 import { useInput } from 'utils/hooks';
 
 const Login: FC = () => {
   const [email, onEmail, setEmail] = useInput('');
   const [passwd, onPasswd, setPasswd] = useInput('');
+
+  const {
+    data: { isLogged },
+    loadingAuth,
+    checkingToken,
+  } = useValues(authLogic);
+  const { login } = useActions(authLogic);
+  const history = useHistory();
+
+  const handleLogin = () => {
+    login(email, passwd);
+  };
+
+  useEffect(() => {
+    if (!isLogged && checkingToken) {
+      history.push('/');
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isLogged) {
+      history.push('/admin');
+    }
+  }, [isLogged]);
+
   return (
     <div className="h-screen bg-gradient-to-br from-blue-700 to-purple-800 flex justify-center items-center">
       <div className="bg-white rounded-lg p-8  shadow-lg max-w-md transform -translate-y-20">
@@ -44,7 +72,11 @@ const Login: FC = () => {
             ></input>
           </div>
         </div>
-        <button className="w-full max-w-md mx-auto bg-gradient-to-r from-purple-700 to-blue-600 text-white rounded py-2 font-medium tracking-wide uppercase">
+        <button
+          className="w-full max-w-md mx-auto bg-gradient-to-r from-purple-700 to-blue-600 text-white rounded py-2 font-medium tracking-wide uppercase"
+          onClick={handleLogin}
+          disabled={loadingAuth}
+        >
           Ingresar
         </button>
       </div>

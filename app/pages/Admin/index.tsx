@@ -1,8 +1,22 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
+import { useValues } from 'kea';
+import { useHistory } from 'react-router-dom';
 
 import HeaderAdmin from './HeaderAdmin';
 
+import authLogic from 'store/auth';
+
 const Admin: FC = () => {
+  const history = useHistory();
+  const {
+    data: { isLogged },
+  } = useValues(authLogic);
+
+  useEffect(() => {
+    if (!isLogged) {
+      history.replace('/');
+    }
+  }, [isLogged]);
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-400 to-gray-500 px-10 pt-10">
       <div

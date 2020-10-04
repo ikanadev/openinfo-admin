@@ -1,11 +1,8 @@
 import React, { FC } from 'react';
 
-interface LogoutProps {
-  size?: number;
-  color?: string;
-}
+import { IconProps } from 'types/common';
 
-const Logout: FC<LogoutProps> = ({ size = 20, color = 'currentColor' }) => {
+const Logout: FC<IconProps> = ({ size = 20, color = 'currentColor' }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} fill="none" viewBox="0 0 24 24" stroke={color}>
       <path

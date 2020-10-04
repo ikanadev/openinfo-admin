@@ -1,12 +1,17 @@
 import React, { FC } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { resetContext, getContext } from 'kea';
+import { Provider } from 'react-redux';
 
 import Main from 'pages/Index';
 import Login from 'pages/Login';
 import Admin from 'pages/Admin';
+import NotificationCont from 'components/NotificationCont';
 
-const App: FC = () => {
-  return (
+resetContext();
+
+const App: FC = () => (
+  <Provider store={getContext().store}>
     <BrowserRouter>
       <Switch>
         <Route path="/" exact>
@@ -19,8 +24,9 @@ const App: FC = () => {
           <Admin />
         </Route>
       </Switch>
+      <NotificationCont />
     </BrowserRouter>
-  );
-};
+  </Provider>
+);
 
 export default App;
