@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useValues } from 'kea';
+import { useValues, useActions } from 'kea';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import MenuItem from './MenuItem';
@@ -12,11 +12,13 @@ const Menu: FC = () => {
   const {
     data: { role },
   } = useValues(authLogic);
+  const { setTitle } = useActions(authLogic);
   const history = useHistory();
   const { pathname } = useLocation();
 
   const menuItems = getItemsByRole(role);
-  const navigate = (path: string) => () => {
+  const navigate = (path: string, title: string) => () => {
+    setTitle(title);
     history.push(path);
   };
   return (
@@ -31,7 +33,7 @@ const Menu: FC = () => {
           key={menuItem.id}
           Icon={menuItem.icon}
           title={menuItem.title}
-          onClick={navigate(menuItem.path)}
+          onClick={navigate(menuItem.path, menuItem.title)}
           isSelected={pathname === menuItem.path}
         />
       ))}

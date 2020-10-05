@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useActions } from 'kea';
+import { useActions, useValues } from 'kea';
 
 import { UserCircle, Logout, User } from 'components/Icons';
 
@@ -10,6 +10,10 @@ const HeaderAdmin: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { logout } = useActions(authLogic);
+  const {
+    data: { username },
+    title,
+  } = useValues(authLogic);
   const history = useHistory();
 
   const toggleMenu = () => {
@@ -21,10 +25,13 @@ const HeaderAdmin: FC = () => {
   };
   return (
     <div className="flex items-center">
-      <p className="uppercase font-bold text-blue-700 text-xl">OpenInfo</p>
-      <p className="flex-1 text-center font-semibold text-lg text-gray-800">Administración de Usuarios</p>
+      <p className="uppercase font-bold text-blue-700 font-header text-2xl tracking-wide">OpenInfo</p>
+      <p className="flex-1 text-center font-semibold font-header text-4xl text-gray-700 tracking-wide">
+        {title.toUpperCase()}
+      </p>
       <span className="items-center justify-center text-blue-700 relative inline-block">
-        <span className="cursor-pointer" onClick={toggleMenu}>
+        <span className="flex items-center cursor-pointer" onClick={toggleMenu}>
+          {username}
           <UserCircle size={30} />
         </span>
         <div

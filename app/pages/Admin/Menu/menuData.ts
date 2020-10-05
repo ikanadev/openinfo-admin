@@ -1,6 +1,15 @@
 import { FC } from 'react';
 
-import { Check } from 'components/Icons';
+import {
+  PresentationChart,
+  Calendar,
+  Clipboard,
+  ClipboardCheck,
+  ClipboardList,
+  UserAdd,
+  UserGroup,
+  Speakerphone,
+} from 'components/Icons';
 import Activities from 'pages/Admin/Activities';
 import GroupMembers from 'pages/Admin/GroupMembers';
 import Juries from 'pages/Admin/Juries';
@@ -27,7 +36,7 @@ interface MenuItemData {
 const menuData: MenuItemData[] = [
   {
     id: 1,
-    icon: Check,
+    icon: PresentationChart,
     title: 'Ver Actividades',
     component: Activities,
     subpath: '/actividades',
@@ -36,7 +45,7 @@ const menuData: MenuItemData[] = [
   },
   {
     id: 2,
-    icon: Check,
+    icon: UserGroup,
     title: 'Agregar o Ver Miembros',
     component: GroupMembers,
     subpath: '/miembros',
@@ -45,7 +54,7 @@ const menuData: MenuItemData[] = [
   },
   {
     id: 3,
-    icon: Check,
+    icon: UserAdd,
     title: 'Asignar Jurados',
     component: Juries,
     subpath: '/jurados',
@@ -54,7 +63,7 @@ const menuData: MenuItemData[] = [
   },
   {
     id: 4,
-    icon: Check,
+    icon: Clipboard,
     title: 'Crear Actividad',
     component: NewActivity,
     subpath: '/nueva-actividad',
@@ -63,7 +72,7 @@ const menuData: MenuItemData[] = [
   },
   {
     id: 5,
-    icon: Check,
+    icon: ClipboardList,
     title: 'Calificar Actividades',
     component: RateActivites,
     subpath: '/calificar-actividad',
@@ -72,7 +81,7 @@ const menuData: MenuItemData[] = [
   },
   {
     id: 6,
-    icon: Check,
+    icon: ClipboardCheck,
     title: 'Actividades Calificadas',
     component: RatedActivities,
     subpath: '/actividades-calificadas',
@@ -81,7 +90,7 @@ const menuData: MenuItemData[] = [
   },
   {
     id: 7,
-    icon: Check,
+    icon: Calendar,
     title: 'Organizar Agenda',
     component: Schedule,
     subpath: '/agenda',
@@ -90,7 +99,7 @@ const menuData: MenuItemData[] = [
   },
   {
     id: 8,
-    icon: Check,
+    icon: Speakerphone,
     title: 'Agregar Auspiciadores',
     component: Sponsors,
     subpath: '/auspiciadores',
@@ -99,7 +108,7 @@ const menuData: MenuItemData[] = [
   },
   {
     id: 9,
-    icon: Check,
+    icon: UserGroup,
     title: 'Crear Equipos',
     component: Teams,
     subpath: '/equipos',
@@ -108,4 +117,5 @@ const menuData: MenuItemData[] = [
   },
 ];
 
-export const getItemsByRole = (role: Roles): MenuItemData[] => menuData.filter((item) => item.availableTo === role);
+export const getItemsByRole = (role: Roles): MenuItemData[] =>
+  menuData.filter((item) => item.availableTo === role || true);

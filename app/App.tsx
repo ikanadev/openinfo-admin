@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import Main from 'pages/Index';
 import Login from 'pages/Login';
 import Admin from 'pages/Admin';
-import NotificationCont from 'components/NotificationCont';
+import NotificationCont from 'components/Notifications';
 
 resetContext();
 

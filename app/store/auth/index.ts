@@ -9,6 +9,7 @@ interface Values {
   data: AuthData;
   loadingAuth: boolean;
   checkingToken: boolean;
+  title: string;
 }
 
 interface Actions {
@@ -22,6 +23,7 @@ interface Actions {
   logout: () => void;
   checkToken: () => void;
   setCheckLoading: (value: boolean) => { value: boolean };
+  setTitle: (value: string) => { value: string };
 }
 
 const initialValue: AuthData = {
@@ -39,11 +41,13 @@ const authLogic = kea<MakeLogicType<Values, Actions, null>>({
     logout: () => ({}),
     checkToken: () => ({}),
     setCheckLoading: (value) => ({ value }),
+    setTitle: (value) => ({ value }),
   },
   defaults: {
     data: initialValue,
     loadingAuth: false,
     checkingToken: true,
+    title: 'Inicio',
   },
   reducers: {
     data: {
@@ -60,6 +64,10 @@ const authLogic = kea<MakeLogicType<Values, Actions, null>>({
       saveToken: () => true,
       logout: () => false,
       setCheckLoading: (_, { value }) => value,
+    },
+    title: {
+      setTitle: (_, { value }) => value,
+      logout: () => 'Inicio',
     },
   },
   listeners: ({ actions }) => ({
@@ -85,6 +93,7 @@ const authLogic = kea<MakeLogicType<Values, Actions, null>>({
         const data = await api.auth.checkToken({ token: getToken() });
         actions.setLoggedData(data.active, getRole(data.authorities[0]), data.user_name);
       } catch (err) {
+        actions.logout();
         // errors is are handled in axios response interceptor
       }
     },

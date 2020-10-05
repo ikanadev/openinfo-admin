@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 
-import { Info, Warning, Cross, CrossCircle, Check } from './Icons';
+import { Info, Warning, Cross, CrossCircle, Check } from 'components/Icons';
 
 import { Notification, NotifTypes } from 'store/notifications/types';
 import config from 'utils/config';

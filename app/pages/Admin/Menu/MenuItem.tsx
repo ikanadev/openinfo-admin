@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { IconProps } from 'types/common';
 
 interface MenuItemProps {
-  Icon: React.FC<IconProps>;
+  Icon: FC<IconProps>;
   title: string;
   isSelected: boolean;
   onClick: () => void;
