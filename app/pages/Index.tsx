@@ -7,14 +7,9 @@ import CircleLoader from 'components/CircleLoader';
 import authLogic from 'store/auth';
 
 const Main: FC = () => {
-  const { data, loadingAuth, checkingToken } = useValues(authLogic);
+  const { data, checkingToken } = useValues(authLogic);
   const { checkToken } = useActions(authLogic);
   const history = useHistory();
-
-  console.log('AUTH STORE:');
-  console.log('Load auth', loadingAuth);
-  console.log('Load token', checkingToken);
-  console.log(data);
 
   useEffect(() => {
     if (!checkingToken && data.isLogged) {

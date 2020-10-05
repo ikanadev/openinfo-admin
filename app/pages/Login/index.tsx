@@ -8,8 +8,8 @@ import authLogic from 'store/auth';
 import { useInput } from 'utils/hooks';
 
 const Login: FC = () => {
-  const [email, onEmail, setEmail] = useInput('');
-  const [passwd, onPasswd, setPasswd] = useInput('');
+  const [email, onEmail] = useInput('');
+  const [passwd, onPasswd] = useInput('');
 
   const {
     data: { isLogged },

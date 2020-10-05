@@ -26,3 +26,18 @@ export const getRole = (type: string): Roles => {
       return Roles.Leader;
   }
 };
+
+export const getRoleText = (type: Roles): string => {
+  switch (type) {
+    case Roles.Leader:
+      return 'Líder de Grupo';
+    case Roles.Commission:
+      return 'Comisión';
+    case Roles.Jury:
+      return 'Jurado';
+    case Roles.Administrator:
+      return 'Administrador';
+    default:
+      return 'Líder de Grupo';
+  }
+};

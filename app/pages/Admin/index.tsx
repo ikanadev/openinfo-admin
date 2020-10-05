@@ -1,16 +1,23 @@
 import React, { FC, useEffect } from 'react';
 import { useValues } from 'kea';
 import { useHistory } from 'react-router-dom';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
 import HeaderAdmin from './HeaderAdmin';
+import AdminGreeting from 'pages/Admin/Greeting';
+import Menu from './Menu';
 
 import authLogic from 'store/auth';
+import { getItemsByRole } from './Menu/menuData';
 
 const Admin: FC = () => {
   const history = useHistory();
+  const { path } = useRouteMatch();
   const {
-    data: { isLogged },
+    data: { isLogged, role },
   } = useValues(authLogic);
+
+  const routes = getItemsByRole(role);
 
   useEffect(() => {
     if (!isLogged) {
@@ -27,8 +34,21 @@ const Admin: FC = () => {
           <HeaderAdmin />
         </div>
         <div className="flex flex-1">
-          <div className="w-48 lg:w-64 border-r border-gray-400">Menu</div>
-          <div className="flex-1 ml-8">Contenido</div>
+          <div className="w-48 lg:w-64 border-r border-gray-400">
+            <Menu />
+          </div>
+          <div className="flex-1 ml-8">
+            <Switch>
+              <Route exact path={path}>
+                <AdminGreeting />
+              </Route>
+              {routes.map((route) => (
+                <Route key={route.id} path={`${path}${route.subpath}`}>
+                  <route.component />
+                </Route>
+              ))}
+            </Switch>
+          </div>
         </div>
       </div>
     </div>
