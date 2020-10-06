@@ -1,7 +1,7 @@
 import api from 'api';
 import { kea, MakeLogicType } from 'kea';
 
-import { getRole, getToken } from 'utils/function';
+import { getRoles, getToken } from 'utils/function';
 import { USER_TOKEN } from 'utils/const';
 import { Roles, AuthData } from './types';
 
@@ -16,9 +16,10 @@ interface Actions {
   login: (username: string, passw: string) => { username: string; passw: string };
   setLoggedData: (
     isActive: boolean,
-    role: Roles,
+    roles: Roles[],
     username: string,
-  ) => { isActive: boolean; role: Roles; username: string };
+    name: string,
+  ) => { isActive: boolean; roles: Roles[]; username: string; name: string };
   saveToken: (token: string) => { token: string };
   logout: () => void;
   checkToken: () => void;
@@ -30,13 +31,14 @@ const initialValue: AuthData = {
   isLogged: false,
   isActive: false,
   username: '',
-  role: Roles.Leader,
+  name: '',
+  roles: [],
 };
 
 const authLogic = kea<MakeLogicType<Values, Actions, null>>({
   actions: {
     login: (username, passw) => ({ username, passw }),
-    setLoggedData: (isActive, role, username) => ({ isActive, role, username }),
+    setLoggedData: (isActive, roles, username, name) => ({ isActive, roles, username, name }),
     saveToken: (token) => ({ token }),
     logout: () => ({}),
     checkToken: () => ({}),
@@ -48,10 +50,11 @@ const authLogic = kea<MakeLogicType<Values, Actions, null>>({
     loadingAuth: false,
     checkingToken: true,
     title: 'Inicio',
+    roles: [],
   },
   reducers: {
     data: {
-      setLoggedData: (_, { isActive, role, username }) => ({ isLogged: true, isActive, role, username }),
+      setLoggedData: (_, { isActive, roles, username, name }) => ({ isLogged: true, isActive, roles, username, name }),
       logout: () => initialValue,
     },
     loadingAuth: {
@@ -77,7 +80,12 @@ const authLogic = kea<MakeLogicType<Values, Actions, null>>({
         actions.saveToken(loginData.access_token);
         localStorage.setItem(USER_TOKEN, loginData.access_token);
         const checkTokenData = await api.auth.checkToken({ token: loginData.access_token });
-        actions.setLoggedData(checkTokenData.active, getRole(checkTokenData.authorities[0]), checkTokenData.user_name);
+        actions.setLoggedData(
+          checkTokenData.active,
+          getRoles(checkTokenData.authorities),
+          checkTokenData.user_name,
+          checkTokenData.nombre,
+        );
       } catch (err) {
         actions.logout();
         // errors are handled in axios response interceptor
@@ -91,7 +99,7 @@ const authLogic = kea<MakeLogicType<Values, Actions, null>>({
       }
       try {
         const data = await api.auth.checkToken({ token: getToken() });
-        actions.setLoggedData(data.active, getRole(data.authorities[0]), data.user_name);
+        actions.setLoggedData(data.active, getRoles(data.authorities), data.user_name, data.nombre);
       } catch (err) {
         actions.logout();
         // errors is are handled in axios response interceptor

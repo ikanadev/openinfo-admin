@@ -11,6 +11,9 @@ module.exports = {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
         header: ['Dosis', ...defaultTheme.fontFamily.sans],
       },
+      spacing: {
+        '2/3': '66.666667%',
+      },
     },
   },
   variants: {},

@@ -1,6 +1,7 @@
 export enum Roles {
   Administrator,
   Commission,
+  LeaderGroup,
   Leader,
   Jury,
 }
@@ -8,6 +9,7 @@ export enum Roles {
 export interface AuthData {
   isLogged: boolean;
   isActive: boolean;
-  role: Roles;
+  roles: Roles[];
   username: string;
+  name: string;
 }

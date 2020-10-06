@@ -11,7 +11,7 @@ const HeaderAdmin: FC = () => {
 
   const { logout } = useActions(authLogic);
   const {
-    data: { username },
+    data: { username, name },
     title,
   } = useValues(authLogic);
   const history = useHistory();
@@ -31,7 +31,7 @@ const HeaderAdmin: FC = () => {
       </p>
       <span className="items-center justify-center text-blue-700 relative inline-block">
         <span className="flex items-center cursor-pointer" onClick={toggleMenu}>
-          {username}
+          {`${name} (${username})`}
           <UserCircle size={30} />
         </span>
         <div

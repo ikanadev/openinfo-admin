@@ -8,6 +8,7 @@ interface SingleInputProps {
   id: string;
   value: string;
   placeholder: string;
+  multiple?: boolean;
   disabled?: boolean;
   startIcon?: FC<IconProps>;
   endIcon?: FC<IconProps>;
@@ -20,16 +21,17 @@ const SingleInput: FC<SingleInputProps> = ({
   id,
   value,
   placeholder,
-  disabled = true,
+  multiple = false,
+  disabled = false,
   onChangeValue,
   startIcon: StartIcon = null,
   endIcon: EndIcon = null,
 }) => {
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     onChangeValue(e.target.value);
   }, []);
   return (
-    <div className="flex flex-col items-start my-2">
+    <div className="flex flex-col items-start my-4">
       <label htmlFor={id} className="text-sm leading-5 font-medium text-gray-700">
         {label}
         {disabled && <span className="text-gray-400"> (inhabilitado)</span>}
@@ -42,15 +44,27 @@ const SingleInput: FC<SingleInputProps> = ({
             <StartIcon size={25} />
           </span>
         )}
-        <input
-          className="form-input w-full px-1 sm:text-sm sm:leading-5 pb-1 outline-none border-b-2 focus:border-teal-500 bg-white"
-          id={id}
-          value={value}
-          placeholder={placeholder}
-          onChange={handleChange}
-          type={type}
-          disabled={disabled}
-        />
+        {multiple ? (
+          <textarea
+            id={id}
+            className="form-input w-full px-1 sm:text-sm sm:leading-5 pb-1 outline-none border-b-2 focus:border-teal-500 bg-white"
+            placeholder={placeholder}
+            value={value}
+            onChange={handleChange}
+            rows={3}
+            disabled={disabled}
+          />
+        ) : (
+          <input
+            className="form-input w-full px-1 sm:text-sm sm:leading-5 pb-1 outline-none border-b-2 focus:border-teal-500 bg-white"
+            id={id}
+            value={value}
+            placeholder={placeholder}
+            onChange={handleChange}
+            type={type}
+            disabled={disabled}
+          />
+        )}
         {EndIcon && (
           <span className="ml-2">
             <EndIcon size={25} />

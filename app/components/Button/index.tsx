@@ -5,10 +5,11 @@ interface Props {
   disabled?: boolean;
   submit?: boolean;
   type?: 'normal' | 'proceed' | 'cancel';
+  full?: boolean;
   onClick: () => void;
 }
 
-const Button: FC<Props> = ({ label, disabled = false, submit = false, type = 'normal', onClick }) => {
+const Button: FC<Props> = ({ label, disabled = false, submit = false, type = 'normal', full = false, onClick }) => {
   const getColor = (): string => (disabled ? 'text-gray-400' : 'text-white');
   const getBg = (): string => {
     if (disabled) return 'bg-gray-200';
@@ -40,7 +41,9 @@ const Button: FC<Props> = ({ label, disabled = false, submit = false, type = 'no
   };
   return (
     <button
-      className={`m-2 px-4 py-2 rounded-md font-header font-semibold tracking-wider text-sm transition duration-300 ${getShadow()} ${getColor()} ${getBg()} ${getCursor()} hover:${getHover()}`}
+      className={`m-2 px-4 py-2 rounded-md font-header font-semibold tracking-wider text-sm transition duration-300 ${getShadow()} ${getColor()} ${getBg()} ${getCursor()} hover:${getHover()} ${
+        full ? 'w-full mx-0' : ''
+      }`}
       onClick={onClick}
       type={submit ? 'submit' : 'button'}
     >

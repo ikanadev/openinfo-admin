@@ -18,10 +18,11 @@ export interface CheckTokenReq {
 }
 export interface CheckTokenResp {
   user_name: string;
+  nombre: string;
   // scope: string[];
   active: boolean;
   // exp: number;
-  authorities: [string];
+  authorities: string[];
   // jti: string;
   // client_id: string;
 }

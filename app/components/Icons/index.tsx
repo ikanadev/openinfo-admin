@@ -15,3 +15,5 @@ export { default as Speakerphone } from './Speakerphone';
 export { default as UserAdd } from './UserAdd';
 export { default as UserGroup } from './UserGroup';
 export { default as Search } from './Search';
+export { default as Filter } from './Filter';
+export { default as Plus } from './Plus';

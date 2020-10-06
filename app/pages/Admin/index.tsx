@@ -8,16 +8,20 @@ import AdminGreeting from 'pages/Admin/Greeting';
 import Menu from './Menu';
 
 import authLogic from 'store/auth';
+import { MenuItemData } from 'types/common';
 import { getItemsByRole } from './Menu/menuData';
 
 const Admin: FC = () => {
   const history = useHistory();
   const { path } = useRouteMatch();
   const {
-    data: { isLogged, role },
+    data: { isLogged, roles },
   } = useValues(authLogic);
 
-  const routes = getItemsByRole(role);
+  const routes: MenuItemData[] = roles.reduce<MenuItemData[]>((res, role) => {
+    const results = getItemsByRole(role);
+    return [...res, ...results];
+  }, []);
 
   useEffect(() => {
     if (!isLogged) {

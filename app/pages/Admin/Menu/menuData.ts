@@ -1,7 +1,5 @@
-import { FC } from 'react';
-
 import {
-  PresentationChart,
+  Plus,
   Calendar,
   Clipboard,
   ClipboardCheck,
@@ -9,34 +7,26 @@ import {
   UserAdd,
   UserGroup,
   Speakerphone,
+  Filter,
 } from 'components/Icons';
 import Activities from 'pages/Admin/Activities';
 import GroupMembers from 'pages/Admin/GroupMembers';
 import Juries from 'pages/Admin/Juries';
 import NewActivity from 'pages/Admin/NewActivity';
-import RateActivites from 'pages/Admin/RateActivities';
-import RatedActivities from 'pages/Admin/RatedActivities';
+import RateActivities from 'pages/Admin/RateActivities';
+import EditActivities from 'pages/Admin/EditActivities';
 import Schedule from 'pages/Admin/Schedule';
 import Sponsors from 'pages/Admin/Sponsors';
 import Teams from 'pages/Admin/Teams';
+import FilterActivities from 'pages/Admin/FilterActivities';
 
-import { IconProps } from 'types/common';
 import { Roles } from 'store/auth/types';
-
-interface MenuItemData {
-  id: number;
-  icon: FC<IconProps>;
-  title: string;
-  component: FC<unknown>;
-  subpath: string;
-  path: string;
-  availableTo: Roles;
-}
+import { MenuItemData } from 'types/common';
 
 const menuData: MenuItemData[] = [
   {
     id: 1,
-    icon: PresentationChart,
+    icon: ClipboardList,
     title: 'Ver Actividades',
     component: Activities,
     subpath: '/actividades',
@@ -46,11 +36,11 @@ const menuData: MenuItemData[] = [
   {
     id: 2,
     icon: UserGroup,
-    title: 'Agregar o Ver Miembros',
+    title: 'Agregar Miembros',
     component: GroupMembers,
     subpath: '/miembros',
     path: '/admin/miembros',
-    availableTo: Roles.Leader,
+    availableTo: Roles.LeaderGroup,
   },
   {
     id: 3,
@@ -63,7 +53,7 @@ const menuData: MenuItemData[] = [
   },
   {
     id: 4,
-    icon: Clipboard,
+    icon: Plus,
     title: 'Crear Actividad',
     component: NewActivity,
     subpath: '/nueva-actividad',
@@ -72,21 +62,22 @@ const menuData: MenuItemData[] = [
   },
   {
     id: 5,
-    icon: ClipboardList,
+    icon: ClipboardCheck,
     title: 'Calificar Actividades',
-    component: RateActivites,
+    component: RateActivities,
     subpath: '/calificar-actividad',
     path: '/admin/calificar-actividad',
     availableTo: Roles.Jury,
   },
+  // this will not go
   {
     id: 6,
-    icon: ClipboardCheck,
-    title: 'Actividades Calificadas',
-    component: RatedActivities,
-    subpath: '/actividades-calificadas',
-    path: '/admin/actividades-calificadas',
-    availableTo: Roles.Jury,
+    icon: ClipboardList,
+    title: 'Ver Actividades',
+    component: EditActivities,
+    subpath: '/editar-actividades',
+    path: '/admin/editar-actividades',
+    availableTo: Roles.LeaderGroup,
   },
   {
     id: 7,
@@ -115,7 +106,15 @@ const menuData: MenuItemData[] = [
     path: '/admin/equipos',
     availableTo: Roles.Commission,
   },
+  {
+    id: 10,
+    icon: Filter,
+    title: 'Filtrar Actividades',
+    component: FilterActivities,
+    subpath: '/filtrar-actividades',
+    path: '/admin/filtrar-actividades',
+    availableTo: Roles.Commission,
+  },
 ];
 
-export const getItemsByRole = (role: Roles): MenuItemData[] =>
-  menuData.filter((item) => item.availableTo === role || true);
+export const getItemsByRole = (role: Roles): MenuItemData[] => menuData.filter((item) => item.availableTo === role);
