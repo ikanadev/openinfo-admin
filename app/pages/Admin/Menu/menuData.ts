@@ -1,7 +1,6 @@
 import {
   Plus,
   Calendar,
-  Clipboard,
   ClipboardCheck,
   ClipboardList,
   UserAdd,

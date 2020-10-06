@@ -14,3 +14,16 @@
 .notification-animation-exit-active {
   @apply opacity-0 transform translate-x-8 transition-all duration-500 ease-out;
 }
+
+.appear-enter {
+  @apply opacity-0 transform scale-75;
+}
+.appear-enter-active {
+  @apply opacity-100 scale-100 transition-all duration-500;
+}
+.appear-exit {
+  @apply opacity-100;
+}
+.appear-exit-active {
+  @apply opacity-0 transform scale-75 transition-all duration-500;
+}

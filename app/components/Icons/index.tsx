@@ -17,3 +17,5 @@ export { default as UserGroup } from './UserGroup';
 export { default as Search } from './Search';
 export { default as Filter } from './Filter';
 export { default as Plus } from './Plus';
+export { default as Eye } from './Eye';
+export { default as EyeOff } from './EyeOff';
