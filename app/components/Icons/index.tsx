@@ -19,3 +19,4 @@ export { default as Filter } from './Filter';
 export { default as Plus } from './Plus';
 export { default as Eye } from './Eye';
 export { default as EyeOff } from './EyeOff';
+export { default as CaretDown } from './CaretDown';

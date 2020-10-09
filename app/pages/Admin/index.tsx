@@ -31,7 +31,7 @@ const Admin: FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-400 to-gray-500 px-10 pt-10">
       <div
-        className="p-8 bg-white shadow-lg container mx-auto flex flex-col"
+        className="p-8 bg-gray-100 shadow-lg container mx-auto flex flex-col"
         style={{ borderRadius: 40, minHeight: 'calc(100vh - 5rem)' }}
       >
         <div className="mb-6">

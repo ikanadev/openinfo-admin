@@ -41,7 +41,7 @@ const Button: FC<Props> = ({ label, disabled = false, submit = false, type = 'no
   };
   return (
     <button
-      className={`m-2 px-4 py-2 rounded-md font-header font-semibold tracking-wider text-sm transition duration-300 ${getShadow()} ${getColor()} ${getBg()} ${getCursor()} hover:${getHover()} ${
+      className={`m-2 px-4 py-2 rounded-md font-header font-semibold tracking-wider text-sm transition duration-300 focus:outline-none ${getShadow()} ${getColor()} ${getBg()} ${getCursor()} hover:${getHover()} ${
         full ? 'w-full mx-0' : ''
       }`}
       onClick={onClick}
