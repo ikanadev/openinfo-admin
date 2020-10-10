@@ -1,3 +1,18 @@
+import { AxiosRequestConfig } from 'axios';
+
+export const FORM_URLENCODED = 'application/x-www-form-urlencoded';
+
+export type UploadPercent = (percent: number) => void;
+
+export const axiosFormConfig = (cb: UploadPercent): AxiosRequestConfig => ({
+  headers: {
+    'Content-Type': FORM_URLENCODED,
+  },
+  onUploadProgress: (progress) => {
+    const uploadPercent = Math.round((progress.loaded * 100) / progress.total);
+    cb(uploadPercent);
+  },
+});
 // the commented fields in responses are values we'll probably never use
 export interface LoginReq {
   username: string;
@@ -25,4 +40,25 @@ export interface CheckTokenResp {
   authorities: string[];
   // jti: string;
   // client_id: string;
+}
+
+export interface PostSponsorReq {
+  nombre: string;
+  logo: File;
+  descripcion: string;
+  contacto: string;
+  linkPagina: string;
+}
+export interface PostSponsorRes {
+  auspiciador: {
+    id: number;
+    nombre: string;
+    logo: string;
+    descripcion: string;
+    link: string;
+    contacto: string;
+    gestion: null | number;
+    createAt: string;
+  };
+  mensaje: string;
 }
