@@ -80,3 +80,6 @@ export const getRolesText = (types: Roles[]): string[] => {
   });
   return rolesText;
 };
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const getKeyValue = <T extends object, K extends keyof T>(obj: T, key: K): T[K] => obj[key];
