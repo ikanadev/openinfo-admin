@@ -65,6 +65,7 @@ const Login: FC = () => {
                 placeholder="ejemplo@domain.bo"
                 value={email}
                 onChange={onEmail}
+                autoFocus
               />
             </div>
             <div className="flex items-center">
@@ -76,7 +77,7 @@ const Login: FC = () => {
               </label>
               <div className="w-2/3 flex items-center bg-gray-200 rounded border-2 border-gray-200">
                 <input
-                  className="w-2/3 flex-1 bg-gray-200 appearance-none py-2 px-4 text-gray-700 leading-tight focus:outline-none"
+                  className="flex-1 bg-gray-200 min-w-0 appearance-none py-2 px-4 text-gray-700 leading-tight focus:outline-none"
                   id="input-password"
                   type={showPassw ? 'text' : 'password'}
                   value={passwd}
