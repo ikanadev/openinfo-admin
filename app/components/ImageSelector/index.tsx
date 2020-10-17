@@ -30,8 +30,8 @@ const ImageSelector: FC<Props> = ({ imgUrl, label, disabled = false, setUrlFile,
         {label}
         {disabled && <span className="text-gray-400"> (inhabilitado)</span>}
       </label>
-      <div className="flex flex-col items-center">
-        <div className="w-3/5 mb-4">
+      <div className="flex flex-col items-center mt-4">
+        <div className="w-7/12 mb-4">
           {imgUrl === '' ? <UploadImage /> : <img className="h-full w-full object-cover" src={imgUrl} />}
         </div>
         <input type="file" accept="image/*" className="hidden" onChange={onSelectImage} ref={inputRef} />

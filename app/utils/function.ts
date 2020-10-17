@@ -3,11 +3,11 @@ import { USER_TOKEN } from './const';
 
 // This function returns the bearer token in the next order
 // of priority: User, Admin, empty
-export const getToken = (): string => {
+export const getToken = (withBearer = true): string => {
   const token = localStorage.getItem(USER_TOKEN);
   if (token !== null) {
-    return token;
-    return `Bearer ${token}`;
+    // return token;
+    return `${withBearer ? 'Bearer ' : ''}${token}`;
   }
   return '';
 };

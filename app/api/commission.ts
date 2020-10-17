@@ -2,14 +2,15 @@ import { AxiosInstance } from 'axios';
 
 import { getKeyValue } from 'utils/function';
 import endpoints from './endpoints';
-import { PostSponsorReq, PostSponsorRes, axiosFormConfig, UploadPercent } from './types';
+import { GetSponsorsRes, PostSponsorReq, PostSponsorRes, axiosFormConfig, UploadPercent } from './types';
 
 interface CommissionAPI {
-  uploadFile(data: PostSponsorReq, cb: UploadPercent): Promise<PostSponsorRes>;
+  postSponsor(data: PostSponsorReq, cb: UploadPercent): Promise<PostSponsorRes>;
+  getSponsors(): Promise<GetSponsorsRes>;
 }
 
 export default (axios: AxiosInstance): CommissionAPI => ({
-  uploadFile: async (data, cb) => {
+  postSponsor: async (data, cb) => {
     const formData = new FormData();
     Object.keys(data).forEach((key) => {
       const value = getKeyValue(data, key as keyof PostSponsorReq);
@@ -18,6 +19,10 @@ export default (axios: AxiosInstance): CommissionAPI => ({
       }
     });
     const resp = await axios.post<PostSponsorRes>(endpoints.commission.postSponsor, formData, axiosFormConfig(cb));
+    return resp.data;
+  },
+  getSponsors: async () => {
+    const resp = await axios.get<GetSponsorsRes>(endpoints.commission.getSponsors);
     return resp.data;
   },
 });

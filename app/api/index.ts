@@ -3,13 +3,10 @@ import Axios from 'axios';
 import conf from 'utils/config';
 import { getToken } from 'utils/function';
 import notificationLogic from 'store/notifications';
-import AuthAPI from './auth';
+import authAPI from './auth';
+import commmissionAPI from './commission';
 
 const axios = Axios.create({
-  auth: {
-    username: conf.clientUser,
-    password: conf.clientPassw,
-  },
   baseURL: conf.apiUrl,
   headers: {
     'Content-Type': 'application/json',
@@ -39,7 +36,8 @@ axios.interceptors.response.use(undefined, (error) => {
 });
 
 const api = {
-  auth: AuthAPI(axios),
+  auth: authAPI(axios),
+  commission: commmissionAPI(axios),
 };
 
 export default api;

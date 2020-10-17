@@ -98,7 +98,7 @@ const authLogic = kea<MakeLogicType<Values, Actions, null>>({
         return;
       }
       try {
-        const data = await api.auth.checkToken({ token: getToken() });
+        const data = await api.auth.checkToken({ token: getToken(false) });
         actions.setLoggedData(data.active, getRoles(data.authorities), data.user_name, data.nombre);
       } catch (err) {
         actions.logout();

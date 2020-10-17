@@ -4,4 +4,5 @@ export interface NewSponsorForm {
   contact: string;
   description: string;
   image: File;
+  imageURL: string;
 }

@@ -5,5 +5,6 @@ export default {
   },
   commission: {
     postSponsor: '/openInfo/auspiciadores',
+    getSponsors: '/openInfo/auspiciadores',
   },
 };

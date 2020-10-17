@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { useValues } from 'kea';
+import { useValues, useMountedLogic } from 'kea';
 import { useHistory } from 'react-router-dom';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
@@ -8,10 +8,12 @@ import AdminGreeting from 'pages/Admin/Greeting';
 import Menu from './Menu';
 
 import authLogic from 'store/auth';
+import sponsorsLogic from 'store/data/sponsors';
 import { MenuItemData } from 'types/common';
 import { getItemsByRole } from './Menu/menuData';
 
 const Admin: FC = () => {
+  useMountedLogic(sponsorsLogic);
   const history = useHistory();
   const { path } = useRouteMatch();
   const {

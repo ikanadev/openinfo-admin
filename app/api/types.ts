@@ -1,5 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 
+import { Sponsor } from 'store/data/types';
 export const FORM_URLENCODED = 'application/x-www-form-urlencoded';
 
 export type UploadPercent = (percent: number) => void;
@@ -50,15 +51,10 @@ export interface PostSponsorReq {
   linkPagina: string;
 }
 export interface PostSponsorRes {
-  auspiciador: {
-    id: number;
-    nombre: string;
-    logo: string;
-    descripcion: string;
-    link: string;
-    contacto: string;
-    gestion: null | number;
-    createAt: string;
-  };
+  auspiciador: Sponsor;
   mensaje: string;
+}
+
+export interface GetSponsorsRes {
+  auspiciadores: Sponsor[];
 }
