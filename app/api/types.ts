@@ -1,6 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
 
-import { Sponsor } from 'store/data/types';
+import { Sponsor, TeamStore } from 'store/data/types';
+import { SearchResult, ItemType, User } from 'types/common';
 export const FORM_URLENCODED = 'application/x-www-form-urlencoded';
 
 export type UploadPercent = (percent: number) => void;
@@ -57,4 +58,36 @@ export interface PostSponsorRes {
 
 export interface GetSponsorsRes {
   auspiciadores: Sponsor[];
+}
+
+export interface SearchUserRes {
+  usuarios: SearchResult[];
+}
+
+export interface ProjectTypesRes {
+  tipoProyectos: ItemType[];
+}
+
+export interface TeamTypesRes {
+  tipoEquipos: ItemType[];
+}
+
+export interface NewTeamReq {
+  idTipoEquipo: number;
+  nombre: string;
+  codRegistro: string;
+}
+export interface NewTeamRes {
+  equipo: {
+    idEquipo: 3;
+    nombre: string;
+    tipoEquipo: ItemType;
+    encargado: User;
+    habilitado: boolean;
+    createAt: string;
+  };
+}
+
+export interface TeamsRes {
+  tipoEquipos: TeamStore[];
 }

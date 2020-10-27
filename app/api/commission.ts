@@ -1,12 +1,25 @@
-import { AxiosInstance } from 'axios';
+import { AxiosInstance, CancelToken } from 'axios';
 
 import { getKeyValue } from 'utils/function';
 import endpoints from './endpoints';
-import { GetSponsorsRes, PostSponsorReq, PostSponsorRes, axiosFormConfig, UploadPercent } from './types';
+import {
+  GetSponsorsRes,
+  PostSponsorReq,
+  PostSponsorRes,
+  axiosFormConfig,
+  UploadPercent,
+  SearchUserRes,
+  NewTeamReq,
+  NewTeamRes,
+  TeamsRes,
+} from './types';
 
 interface CommissionAPI {
   postSponsor(data: PostSponsorReq, cb: UploadPercent): Promise<PostSponsorRes>;
   getSponsors(): Promise<GetSponsorsRes>;
+  searchUser(term: string, calcelToken: CancelToken): Promise<SearchUserRes>;
+  postTeam(data: NewTeamReq): Promise<NewTeamRes>;
+  getTeams(): Promise<TeamsRes>;
 }
 
 export default (axios: AxiosInstance): CommissionAPI => ({
@@ -23,6 +36,18 @@ export default (axios: AxiosInstance): CommissionAPI => ({
   },
   getSponsors: async () => {
     const resp = await axios.get<GetSponsorsRes>(endpoints.commission.getSponsors);
+    return resp.data;
+  },
+  searchUser: async (term, cancelToken) => {
+    const resp = await axios.get<SearchUserRes>(endpoints.commission.searchUser(term), { cancelToken });
+    return resp.data;
+  },
+  postTeam: async (data) => {
+    const resp = await axios.post<NewTeamRes>(endpoints.commission.postTeam, data);
+    return resp.data;
+  },
+  getTeams: async () => {
+    const resp = await axios.get<TeamsRes>(endpoints.commission.getTeams);
     return resp.data;
   },
 });

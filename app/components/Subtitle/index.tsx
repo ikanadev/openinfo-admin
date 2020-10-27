@@ -5,7 +5,9 @@ interface Props {
 }
 
 const Subtitle: FC<Props> = ({ text }) => {
-  return <h3 className="text-gray-800 mt-3 mb-1 font-header font-bold text-base">{text.toUpperCase()}</h3>;
+  return (
+    <h3 className="text-teal-600 mt-3 mb-1 font-header font-semibold text-base tracking-wide">{text.toUpperCase()}</h3>
+  );
 };
 
 export default Subtitle;

@@ -96,8 +96,6 @@ const commissionLogic = kea<MakeLogicType<Values, Actions, null>>({
         notifLogic.actions.addSuccess('Registrado', resp.mensaje);
         actions.clear();
         sponsorsLogic.actions.addItem(resp.auspiciador);
-        // TODO: fire an action to add this sponsor
-        console.log(resp.auspiciador);
       } catch (e) {
         actions.setLoading(false);
         actions.setPercent(initialState.percentUploaded);

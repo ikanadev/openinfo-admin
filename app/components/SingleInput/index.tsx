@@ -47,7 +47,7 @@ const SingleInput: FC<SingleInputProps> = ({
         {multiple ? (
           <textarea
             id={id}
-            className="form-input w-full px-1 py-2 sm:text-sm sm:leading-5 pb-1 outline-none border-b-2 focus:border-teal-500 bg-gray-100"
+            className="form-input w-full px-1 py-2 sm:text-sm sm:leading-5 pb-1 outline-none border-b-2 focus:border-teal-500 bg-gray-200"
             placeholder={placeholder}
             value={value}
             onChange={handleChange}
@@ -56,7 +56,7 @@ const SingleInput: FC<SingleInputProps> = ({
           />
         ) : (
           <input
-            className="form-input w-full px-1 sm:text-sm sm:leading-5 pb-1 outline-none border-b-2 focus:border-teal-500 bg-gray-100"
+            className="form-input w-full px-1 sm:text-sm sm:leading-5 pb-1 outline-none border-b-2 focus:border-teal-500 bg-gray-200"
             id={id}
             value={value}
             placeholder={placeholder}

@@ -5,6 +5,7 @@ import { getToken } from 'utils/function';
 import notificationLogic from 'store/notifications';
 import authAPI from './auth';
 import commmissionAPI from './commission';
+import commonAPI from './common';
 
 const axios = Axios.create({
   baseURL: conf.apiUrl,
@@ -21,7 +22,7 @@ axios.interceptors.request.use((config) => {
 
 axios.interceptors.response.use(undefined, (error) => {
   if (Axios.isCancel(error)) {
-    return Promise.reject<string>('requestCanceled');
+    return Promise.reject(error);
   }
   const umount = notificationLogic.mount();
   if (error.response?.data?.error_description) {
@@ -38,6 +39,7 @@ axios.interceptors.response.use(undefined, (error) => {
 const api = {
   auth: authAPI(axios),
   commission: commmissionAPI(axios),
+  common: commonAPI(axios),
 };
 
 export default api;
