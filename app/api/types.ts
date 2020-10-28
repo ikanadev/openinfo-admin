@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
 
 import { Sponsor, TeamStore } from 'store/data/types';
-import { SearchResult, ItemType, User } from 'types/common';
+import { SearchResult, ItemType, User, LeaderTeam, Project } from 'types/common';
 export const FORM_URLENCODED = 'application/x-www-form-urlencoded';
 
 export type UploadPercent = (percent: number) => void;
@@ -90,4 +90,18 @@ export interface NewTeamRes {
 
 export interface TeamsRes {
   tipoEquipos: TeamStore[];
+}
+
+export interface LeaderTeamsRes {
+  equipos: LeaderTeam[];
+}
+
+export interface NewProjectReq {
+  nombre: string;
+  area: string;
+  idEquipo: number;
+  codJefeProyecto: string;
+}
+export interface NewProjectRes {
+  proyecto: Project;
 }

@@ -14,4 +14,8 @@ export default {
     projectTypes: '/openInfo/tipoProyectos',
     teamTypes: '/openInfo/tipoEquipo',
   },
+  teamLeader: {
+    getTeams: (code: string): string => `/openInfo/equiposUsuario/${code}`,
+    postProject: '/openInfo/registrarProyecto',
+  },
 };

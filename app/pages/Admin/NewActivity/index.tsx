@@ -1,93 +1,81 @@
-import React, { FC, useState } from 'react';
-import { Transition } from '@headlessui/react';
+import React, { FC, useState, useEffect } from 'react';
+import { useValues, useActions } from 'kea';
 
+import newProjectFormLogic from 'store/forms/newProject';
+import leaderTeamsLogic from 'store/data/leaderTeams';
+import { ProjectType } from 'types/common';
+
+import LoaderWithText from 'components/LoaderWithText';
+import NoItemsText from 'components/NoItemsText';
+import SearchUser from 'components/SearchUser';
+import SelectedUser from 'components/SelectedUser';
+import Switch from 'components/Switch';
+import SelectOption from 'components/SelectOption';
 import SingleInput from 'components/SingleInput';
 import Subtitle from 'components/Subtitle';
 import Button from 'components/Button';
 import Title from 'components/Title';
-import { Search } from 'components/Icons';
-
-const users: Users[] = [
-  { name: 'Dan Abramov', code: 'skejdl23' },
-  { name: 'Adam Wathan', code: 'adjfl4' },
-  { name: 'Jhon Calhoun', code: 'lksadjl9003' },
-];
-
-interface Users {
-  name: string;
-  code: string;
-}
 
 const NewActivity: FC = () => {
-  const [val, setVal] = useState('');
-  const [results, setResults] = useState<Users[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const { isLoading, isFetched, items } = useValues(leaderTeamsLogic);
+  const { getItems } = useActions(leaderTeamsLogic);
 
-  const search = async (term: string) => {
-    setSearchTerm(term);
-    if (term.length > 0) {
-      setResults(users);
+  const {
+    isLoading: isLoadingForm,
+    form: { area, name, selectedTeam, selectedUser },
+  } = useValues(newProjectFormLogic);
+  const { setUser, setArea, setName, setTeam, postData } = useActions(newProjectFormLogic);
+
+  const [isContest, setIsContest] = useState(area === ProjectType.concurso);
+
+  useEffect(() => {
+    if (isContest) {
+      setArea(ProjectType.concurso);
       return;
     }
-    setResults([]);
-  };
+    setArea(ProjectType.feria);
+  }, [isContest]);
 
-  const handleSubmit = () => {
-    //
-  };
+  useEffect(() => {
+    if (!isFetched) getItems();
+  }, [isFetched]);
+
+  if (isLoading) return <LoaderWithText text="Obteniendo sus equipos..." />;
+  if (isFetched && items.length === 0) return <NoItemsText text="Ups! parece que no le asignaron en ningún grupo." />;
+  if (!isFetched) return <NoItemsText error text="Error cargando sus equipos, inténtelo más tarde" />;
   return (
     <div>
-      <Title text="Crear Actividad" />
-      <Subtitle text="Datos actividad" />
+      <Title text="Crear Proyecto" />
+      <Subtitle text="Datos" />
       <SingleInput
-        value={val}
-        onChangeValue={setVal}
+        value={name}
+        onChangeValue={setName}
+        disabled={isLoadingForm}
         label="Titulo"
-        id="new-activity-input"
+        id="new-project-input"
         placeholder="Ej. Manejo de luces con IoT, Creacion de un sitio web..."
       />
 
+      <Switch active={isContest} setActive={setIsContest} disabled={isLoadingForm} label="Participa en el concurso?" />
+
       <div className="mt-1">
-        <SingleInput
-          id="leader-jury-search-input"
-          label="Buscar encargado"
-          placeholder="Ej. Pepito, Juan, user23"
-          endIcon={Search}
-          onChangeValue={search}
-          value={searchTerm}
+        <SearchUser label="Buscar encargado" onSelectResult={setUser} />
+        <SelectedUser
+          user={selectedUser}
+          subtitle="Encargado seleccionado:"
+          noUserText="Busque y seleccione un usuario"
         />
-        <Transition
-          show={results.length > 0}
-          enter="transition-opacity duration-150"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="transition-opacity duration-150"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-          className="relative w-full z-10 transform -translate-y-3"
-        >
-          <div className="absolute w-full rounded-md bg-white shadow-lg overflow-hidden">
-            {results.map((result) => (
-              <div
-                key={result.code}
-                className="flex flex-col text-gray-800 my-0 hover:bg-gray-300 py-2 px-4 cursor-pointer transition duration-200"
-              >
-                <span className="text-base">{result.name}</span>
-                <span className="text-sm text-gray-600">{result.code}</span>
-              </div>
-            ))}
-            {/* <div className="text-center italic text-gray-600 py-5"> No results found :(</div> */}
-          </div>
-        </Transition>
-
-        <Subtitle text="Encargado seleccionado" />
-        <div className="flex flex-col text-gray-800 my-0 pb-2">
-          <span className="text-base">Dan Abramov</span>
-          <span className="text-sm text-gray-600">dana324</span>
-        </div>
-
-        <Button label="Crear Actividad" type="proceed" onClick={handleSubmit} full />
       </div>
+
+      <SelectOption
+        label="Equipo"
+        items={items.map((i) => ({ id: i.idEquipo, nombre: i.nombre }))}
+        selectedItem={selectedTeam}
+        setSelectedItem={setTeam}
+        disabled={isLoadingForm}
+      />
+
+      <Button label="Crear Proyecto" type="proceed" onClick={postData} full />
     </div>
   );
 };

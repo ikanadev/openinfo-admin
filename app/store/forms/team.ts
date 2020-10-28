@@ -57,11 +57,11 @@ const teamFormLogic = kea<MakeLogicType<Values, Actions, null>>({
   listeners: ({ actions, values }) => ({
     postData: async () => {
       const { form } = values;
-      if (form.groupName === '' && form.selectedTeamType.id === 0 && form.selectedUser === null) {
+      if (form.groupName === '' || form.selectedTeamType.id === 0 || form.selectedUser === null) {
         notificationLogic.actions.addWarning('Datos incompletos', 'Seleccione un nombre, un tipo y un encargado');
+        actions.setIsLoading(false);
         return;
       }
-      if (form.selectedUser === null) return;
       try {
         const resp = await api.commission.postTeam({
           codRegistro: form.selectedUser.codRegistro,

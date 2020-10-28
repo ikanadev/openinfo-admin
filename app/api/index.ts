@@ -6,6 +6,7 @@ import notificationLogic from 'store/notifications';
 import authAPI from './auth';
 import commmissionAPI from './commission';
 import commonAPI from './common';
+import teamLeaderAPI from './teamLeader';
 
 const axios = Axios.create({
   baseURL: conf.apiUrl,
@@ -40,6 +41,7 @@ const api = {
   auth: authAPI(axios),
   commission: commmissionAPI(axios),
   common: commonAPI(axios),
+  teamLeader: teamLeaderAPI(axios),
 };
 
 export default api;
