@@ -38,6 +38,12 @@ export interface User {
   habilitado: boolean;
 }
 
+export interface Participant {
+  usuario: User;
+  gradoAcademico: string | null;
+  descripcion: string | null;
+}
+
 export interface Team {
   idEquipo: number;
   nombre: string;
@@ -54,22 +60,4 @@ export interface LeaderTeam extends Team {
 export enum ProjectType {
   feria = 'feria',
   concurso = 'concurso',
-}
-
-export interface Project {
-  id: number;
-  nombre: string;
-  problematica: string | null;
-  objetivoGeneral: string | null;
-  alcance: string | null;
-  beneficiarios: string | null;
-  valorAgregado: string | null;
-  descripcion: string | null;
-  banner: string | null;
-  linkVideo: string | null;
-  area: ProjectType;
-  habilitado: boolean;
-  equipo: TeamWithType;
-  // TODO: check if this field is number or string
-  tipoProyecto: number | null;
 }

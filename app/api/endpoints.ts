@@ -17,5 +17,10 @@ export default {
   teamLeader: {
     getTeams: (code: string): string => `/openInfo/equiposUsuario/${code}`,
     postProject: '/openInfo/registrarProyecto',
+    getProjects: (code: string): string => `/openInfo/proyectosDocente/${code}`,
+  },
+  projectLeader: {
+    getProjects: (code: string): string => `/openInfo/proyectosUsuario/${code}`,
+    postNewMember: `/openInfo/agregarParticipante`,
   },
 };

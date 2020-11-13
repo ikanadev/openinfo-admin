@@ -11,8 +11,16 @@ interface Props {
   selectedItem: ItemType;
   setSelectedItem: (item: ItemType) => void;
   disabled?: boolean;
+  noDefault?: boolean;
 }
-const SelectOption: FC<Props> = ({ label, items, selectedItem, setSelectedItem, disabled = false }) => {
+const SelectOption: FC<Props> = ({
+  label,
+  items,
+  selectedItem,
+  setSelectedItem,
+  disabled = false,
+  noDefault = false,
+}) => {
   return (
     <div className={`my-4 flex items-center ${disabled ? 'opacity-25' : 'opacity-100'}`}>
       <Listbox value={selectedItem} onChange={setSelectedItem}>
@@ -32,11 +40,13 @@ const SelectOption: FC<Props> = ({ label, items, selectedItem, setSelectedItem, 
                 className="absolute mt-1 w-full rounded-md bg-white shadow-lg"
               >
                 <Listbox.Options className="rounded-md text-base shadow-lg focus:outline-none overflow-hidden">
-                  <Listbox.Option key={DEFAULT_OPTION.id} value={(DEFAULT_OPTION as unknown) as string}>
-                    <div className="text-gray-900 select-none relative py-1 px-2">
-                      <span className="font-normal block truncate text-sm">{DEFAULT_OPTION.nombre}</span>
-                    </div>
-                  </Listbox.Option>
+                  {noDefault || (
+                    <Listbox.Option key={DEFAULT_OPTION.id} value={(DEFAULT_OPTION as unknown) as string}>
+                      <div className="text-gray-900 select-none relative py-1 px-2">
+                        <span className="font-normal block truncate text-sm">{DEFAULT_OPTION.nombre}</span>
+                      </div>
+                    </Listbox.Option>
+                  )}
                   {items.map((item) => (
                     <Listbox.Option key={item.id} value={(item as unknown) as string}>
                       {({ active, selected }) => (

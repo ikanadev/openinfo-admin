@@ -4,6 +4,7 @@ import api from 'api';
 import { SearchResult, ProjectType, ItemType } from 'types/common';
 import { DEFAULT_OPTION } from 'utils/const';
 import notificationLogic from 'store/notifications';
+import leaderProjectsLogic from 'store/data/leaderProjects';
 
 interface Values {
   isLoading: boolean;
@@ -69,15 +70,14 @@ const newProjectLogic = kea<MakeLogicType<Values, Actions, null>>({
         return;
       }
       try {
-        const resp = await api.teamLeader.postTeam({
+        const resp = await api.teamLeader.postProject({
           area,
           codJefeProyecto: selectedUser.codRegistro,
           idEquipo: selectedTeam.id,
           nombre: name,
         });
         notificationLogic.actions.addSuccess('Hecho!', 'Nuevo proyecto registrado');
-        // TODO: save the registered project in our arrya of projects
-        console.log('Save me: ', resp.proyecto);
+        leaderProjectsLogic.actions.addItem(resp.proyecto);
         actions.clear();
       } catch (e) {
         actions.setIsLoading(false);

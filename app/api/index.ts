@@ -7,6 +7,7 @@ import authAPI from './auth';
 import commmissionAPI from './commission';
 import commonAPI from './common';
 import teamLeaderAPI from './teamLeader';
+import projectLeaderAPI from './projectLeader';
 
 const axios = Axios.create({
   baseURL: conf.apiUrl,
@@ -42,6 +43,7 @@ const api = {
   commission: commmissionAPI(axios),
   common: commonAPI(axios),
   teamLeader: teamLeaderAPI(axios),
+  projectLeader: projectLeaderAPI(axios),
 };
 
 export default api;

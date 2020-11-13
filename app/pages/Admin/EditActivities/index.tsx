@@ -1,75 +1,85 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
+import { useActions, useValues } from 'kea';
 
 import Title from 'components/Title';
-import Button from 'components/Button';
-import SingleInput from 'components/SingleInput';
-import ImageSelector from 'components/ImageSelector';
+import SelectOption from 'components/SelectOption';
+import NoItemsText from 'components/NoItemsText';
+import LoaderWithText from 'components/LoaderWithText';
+import Details from './Details';
+import Members from './Members';
+
+import { LeaderProject } from 'store/data/types';
+import userProjectsLogic from 'store/data/userProjects';
+import { ItemType } from 'types/common';
+
+enum TabType {
+  details = 'details',
+  members = 'members',
+}
+const getProjectByID = (projects: LeaderProject[], id: number): LeaderProject => {
+  const proy = projects.find((p) => p.id === id);
+  if (!proy) return projects[0];
+  return proy;
+};
 
 const EditActivities: FC = () => {
-  const [val, setVal] = useState('');
-  const handleClick = () => {
-    //
+  const [selectedItemID, setSelectedItemID] = useState(0);
+  const [selectedTab, setSelectedTab] = useState<TabType>(TabType.members);
+
+  const { isFetched, isLoading, items } = useValues(userProjectsLogic);
+  const { getItems } = useActions(userProjectsLogic);
+
+  const setTab = (tab: TabType) => () => {
+    setSelectedTab(tab);
   };
+  const selectItem = (item: ItemType) => {
+    setSelectedItemID(item.id);
+  };
+  useEffect(() => {
+    if (!isFetched) getItems();
+    if (isFetched && items.length > 0) {
+      setSelectedItemID(items[0].id);
+    }
+  }, [isFetched]);
+
+  if (isLoading) return <LoaderWithText text="Obteniendo sus proyectos..." />;
+  if ((isFetched && items.length === 0) || selectedItemID === 0)
+    return <NoItemsText text="Ups! parece que no tienes proyectos." />;
+  if (!isFetched) return <NoItemsText error text="Error cargando tus proyectos, inténtalo más tarde." />;
+  console.log(items, selectedItemID);
   return (
-    <div className="flex">
-      <div className="flex-1">
-        <Title text="Editar Datos" />
-
-        <SingleInput
-          id="activity-title"
-          value={val}
-          label="Título"
-          onChangeValue={setVal}
-          placeholder="Ej. Proyecto sitio web"
-        />
-        <SingleInput
-          id="activity-video-link"
-          value={val}
-          label="Link video"
-          onChangeValue={setVal}
-          placeholder="youtube, facebook, vimeo, etc..."
-        />
-        <ImageSelector label="Banner o imagen principal" imgUrl="" setFile={handleClick} setUrlFile={handleClick} />
-        <SingleInput
-          id="activity-description"
-          value={val}
-          label="Descripción"
-          onChangeValue={setVal}
-          placeholder="Breve descripción del proyecto"
-          multiple
-        />
-        <Button label="Actualizar" onClick={handleClick} type="proceed" full />
+    <>
+      <SelectOption
+        label="Selecciona un Proyecto"
+        items={items}
+        setSelectedItem={selectItem}
+        selectedItem={getProjectByID(items, selectedItemID)}
+        noDefault
+      />
+      <Title text={getProjectByID(items, selectedItemID).nombre} />
+      <div className="flex">
+        <h2
+          className={`${
+            selectedTab === TabType.details ? 'text-teal-700 border-teal-600' : 'text-gray-500 border-gray-500'
+          } flex-1 cursor-pointer py-2 text-center font-semibold text-base tracking-wide font-header border-b-2 transition duration-200`}
+          onClick={setTab(TabType.details)}
+        >
+          DETALLES
+        </h2>
+        <h2
+          className={`${
+            selectedTab === TabType.members ? 'text-teal-700 border-teal-600' : 'text-gray-500 border-gray-500'
+          } flex-1 cursor-pointer py-2 text-center font-semibold text-base tracking-wide font-header border-b-2 transition duration-200`}
+          onClick={setTab(TabType.members)}
+        >
+          INTEGRANTES
+        </h2>
       </div>
-      <div className="flex-1 ml-5">
-        <Title text="Actividades" />
-
-        <table className="w-full rounded-lg overflow-hidden shadow-md">
-          <thead className="bg-teal-600 text-white">
-            <tr>
-              <td className="py-1 pl-5">Actividad</td>
-              <td>Nota</td>
-              <td>Acciones</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="border-b border-gray-200">
-              <td className="py-2 pl-5">Proyecto web medio ambiente</td>
-              <td>86</td>
-              <td>
-                <Button label="Editar" onClick={handleClick} />
-              </td>
-            </tr>
-            <tr className="border-b border-gray-200">
-              <td className="py-2 pl-5">Proyecto web medio ambiente</td>
-              <td>60</td>
-              <td>
-                <Button label="Editar" onClick={handleClick} />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div className="overflow-x-hidden">
+        <Details open={selectedTab === TabType.details} />
+        <Members open={selectedTab === TabType.members} project={getProjectByID(items, selectedItemID)} />
       </div>
-    </div>
+    </>
   );
 };
 
