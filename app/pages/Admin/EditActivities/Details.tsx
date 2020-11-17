@@ -1,10 +1,8 @@
 import React, { FC, useState } from 'react';
 import { Transition } from '@headlessui/react';
 
-import Title from 'components/Title';
-import Button from 'components/Button';
-import SingleInput from 'components/SingleInput';
-import ImageSelector from 'components/ImageSelector';
+import ProjectDetails from 'components/ProjectDetails';
+import EditProjectForm from './EditProjectForm';
 
 import { LeaderProject } from 'store/data/types';
 
@@ -14,9 +12,9 @@ interface Props {
 }
 
 const EditActivities: FC<Props> = ({ open, project }) => {
-  const [val, setVal] = useState('');
-  const handleClick = () => {
-    //
+  const [isEditing, setIsEditing] = useState(false);
+  const toggleEdit = () => {
+    setIsEditing((prev) => !prev);
   };
   return (
     <Transition
@@ -24,38 +22,10 @@ const EditActivities: FC<Props> = ({ open, project }) => {
       enter="transition duration-300"
       enterFrom="transform -translate-x-full"
       enterTo="transform translate-x-0"
-      className="min-w-full"
+      className="min-w-full relative"
     >
-      <div className="flex">
-        <div className="flex-1">
-          <Title text="Editar Datos" />
-
-          <SingleInput
-            id="activity-title"
-            value={val}
-            label="Título"
-            onChangeValue={setVal}
-            placeholder="Ej. Proyecto sitio web"
-          />
-          <SingleInput
-            id="activity-video-link"
-            value={val}
-            label="Link video"
-            onChangeValue={setVal}
-            placeholder="youtube, facebook, vimeo, etc..."
-          />
-          <ImageSelector label="Banner o imagen principal" imgUrl="" setFile={handleClick} setUrlFile={handleClick} />
-          <SingleInput
-            id="activity-description"
-            value={val}
-            label="Descripción"
-            onChangeValue={setVal}
-            placeholder="Breve descripción del proyecto"
-            multiple
-          />
-          <Button label="Actualizar" onClick={handleClick} type="proceed" full />
-        </div>
-      </div>
+      <ProjectDetails open={!isEditing} project={project} onEdit={toggleEdit} />
+      <EditProjectForm open={isEditing} cancel={toggleEdit} project={project} />
     </Transition>
   );
 };

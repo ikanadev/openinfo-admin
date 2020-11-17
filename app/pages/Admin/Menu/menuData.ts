@@ -9,7 +9,6 @@ import {
   Filter,
 } from 'components/Icons';
 import Activities from 'pages/Admin/Activities';
-import GroupMembers from 'pages/Admin/GroupMembers';
 import Juries from 'pages/Admin/Juries';
 import NewActivity from 'pages/Admin/NewActivity';
 import RateActivities from 'pages/Admin/RateActivities';
@@ -31,15 +30,6 @@ const menuData: MenuItemData[] = [
     subpath: '/actividades',
     path: '/admin/actividades',
     availableTo: Roles.Leader,
-  },
-  {
-    id: 2,
-    icon: UserGroup,
-    title: 'Agregar Miembros',
-    component: GroupMembers,
-    subpath: '/miembros',
-    path: '/admin/miembros',
-    availableTo: Roles.LeaderGroup,
   },
   {
     id: 3,

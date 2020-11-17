@@ -7,9 +7,9 @@ interface Props {
 
 const Detail: FC<Props> = ({ name, value }) => {
   return (
-    <p className="my-2">
-      <span className="font-medium inline-block">{name}</span>
-      <span className={`${value ? '' : 'italic opacity-75'} ml-4`}>{`${value || '(No definido)'}`}</span>
+    <p className="my-2 flex">
+      <span className="font-medium">{name}</span>
+      <span className={`${value ? '' : 'italic opacity-75'} ml-4 flex-1`}>{`${value || '(No definido)'}`}</span>
     </p>
   );
 };

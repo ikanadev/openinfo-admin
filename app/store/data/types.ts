@@ -20,7 +20,7 @@ export interface LeaderProject {
   nombre: string;
   problematica: null | string;
   objetivoGeneral: null | string;
-  objectivosEspecificos: string[];
+  objetivosEspecificos: string[];
   alcance: null | string;
   beneficiarios: null | string;
   valorAgregado: null | string;
