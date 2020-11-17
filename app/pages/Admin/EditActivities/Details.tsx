@@ -6,11 +6,14 @@ import Button from 'components/Button';
 import SingleInput from 'components/SingleInput';
 import ImageSelector from 'components/ImageSelector';
 
+import { LeaderProject } from 'store/data/types';
+
 interface Props {
   open: boolean;
+  project: LeaderProject;
 }
 
-const EditActivities: FC<Props> = ({ open }) => {
+const EditActivities: FC<Props> = ({ open, project }) => {
   const [val, setVal] = useState('');
   const handleClick = () => {
     //
@@ -51,35 +54,6 @@ const EditActivities: FC<Props> = ({ open }) => {
             multiple
           />
           <Button label="Actualizar" onClick={handleClick} type="proceed" full />
-        </div>
-        <div className="flex-1 ml-5">
-          <Title text="Actividades" />
-
-          <table className="w-full rounded-lg overflow-hidden shadow-md">
-            <thead className="bg-teal-600 text-white">
-              <tr>
-                <td className="py-1 pl-5">Actividad</td>
-                <td>Nota</td>
-                <td>Acciones</td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-b border-gray-200">
-                <td className="py-2 pl-5">Proyecto web medio ambiente</td>
-                <td>86</td>
-                <td>
-                  <Button label="Editar" onClick={handleClick} />
-                </td>
-              </tr>
-              <tr className="border-b border-gray-200">
-                <td className="py-2 pl-5">Proyecto web medio ambiente</td>
-                <td>60</td>
-                <td>
-                  <Button label="Editar" onClick={handleClick} />
-                </td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </div>
     </Transition>

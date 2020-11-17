@@ -41,7 +41,7 @@ const Members: FC<Props> = ({ open, project }) => {
           </div>
         ))}
         <Transition
-          show={showForm}
+          show={!showForm}
           enter="transition duration-300"
           enterFrom="transform scale-75 opacity-50"
           enterTo="transform scale-100 opacity-100"
@@ -50,7 +50,7 @@ const Members: FC<Props> = ({ open, project }) => {
           <Button label="Agregar nuevo integrante" onClick={toggleForm} full type="proceed" />
         </Transition>
         <Transition
-          show={!showForm}
+          show={showForm}
           enter="transition duration-300"
           enterFrom="transform scale-75 opacity-50"
           enterTo="transform scale-100 opacity-100"

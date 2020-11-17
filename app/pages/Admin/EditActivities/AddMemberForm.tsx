@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { useValues, useActions } from 'kea';
 
 import Title from 'components/Title';
@@ -38,9 +38,8 @@ const AddMemberForm: FC<Props> = ({ onClose, projectID }) => {
     setGradoAc,
     postData,
     setDescripcion,
+    setFotoURL,
   } = useActions(newMemberLogic);
-
-  const [imgUrl, setImgUrl] = useState('');
 
   const handleSubmit = () => {
     postData(projectID);
@@ -62,14 +61,21 @@ const AddMemberForm: FC<Props> = ({ onClose, projectID }) => {
         <div className="flex">
           <div className="flex-1">
             <ImageSelector
-              imgUrl={imgUrl}
+              imgUrl={form.fotoURL}
               label="Foto:"
               setFile={setFoto}
-              setUrlFile={setImgUrl}
+              setUrlFile={setFotoURL}
               disabled={isLoading}
             />
           </div>
           <div className="flex-1">
+            <SelectOption
+              label="Grado académico:"
+              items={grados}
+              selectedItem={form.gradoAcademico}
+              setSelectedItem={setGradoAc}
+              disabled={isLoading}
+            />
             <SingleInput
               id="new-member-ci"
               label="C.I."
@@ -100,13 +106,6 @@ const AddMemberForm: FC<Props> = ({ onClose, projectID }) => {
               placeholder="Ej. facebook, github, linkedin"
               onChangeValue={setContacto3}
               value={form.contacto3}
-              disabled={isLoading}
-            />
-            <SelectOption
-              label="Grado:"
-              items={grados}
-              selectedItem={form.gradoAcademico}
-              setSelectedItem={setGradoAc}
               disabled={isLoading}
             />
           </div>

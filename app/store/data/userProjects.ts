@@ -36,7 +36,7 @@ const userProjectsLogic = kea<MakeLogicType<Values, Actions, null>>({
       setItems: (_, { items }) => items,
       addMember: (state, { member, projID }) => {
         return state.map((pr) => {
-          if (pr.id.toString() === projID.toString()) {
+          if (pr.id === projID) {
             const project: LeaderProject = { ...pr, participantes: [...pr.participantes, member] };
             return project;
           }

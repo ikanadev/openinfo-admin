@@ -10,6 +10,7 @@ interface Values {
   form: {
     ci: string;
     foto: File;
+    fotoURL: string;
     gradoAcademico: ItemType;
     telefono: string;
     contacto2: string;
@@ -27,6 +28,7 @@ interface Actions {
   setPercent: (percent: number) => { percent: number };
   setCI: (value: string) => { value: string };
   setFoto: (file: File) => { file: File };
+  setFotoURL: (url: string) => { url: string };
   setGradoAc: (grado: ItemType) => { grado: ItemType };
   setTelefono: (num: string) => { num: string };
   setContacto2: (value: string) => { value: string };
@@ -40,6 +42,7 @@ const initialState: Values = {
   form: {
     ci: '',
     foto: EmpyFile,
+    fotoURL: '',
     gradoAcademico: DEFAULT_OPTION,
     telefono: '',
     contacto2: '',
@@ -57,6 +60,7 @@ const newMemberLogic = kea<MakeLogicType<Values, Actions, null>>({
     setPercent: (percent) => ({ percent }),
     setCI: (value) => ({ value }),
     setFoto: (file) => ({ file }),
+    setFotoURL: (url) => ({ url }),
     setGradoAc: (grado) => ({ grado }),
     setTelefono: (num) => ({ num }),
     setContacto2: (value) => ({ value }),
@@ -74,6 +78,7 @@ const newMemberLogic = kea<MakeLogicType<Values, Actions, null>>({
     form: {
       setCI: (state, { value }) => ({ ...state, ci: value }),
       setFoto: (state, { file }) => ({ ...state, foto: file }),
+      setFotoURL: (state, { url }) => ({ ...state, fotoURL: url }),
       setGradoAc: (state, { grado }) => ({ ...state, gradoAcademico: grado }),
       setTelefono: (state, { num }) => ({ ...state, telefono: num }),
       setContacto2: (state, { value }) => ({ ...state, contacto2: value }),

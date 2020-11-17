@@ -24,7 +24,7 @@ const getProjectByID = (projects: LeaderProject[], id: number): LeaderProject =>
 
 const EditActivities: FC = () => {
   const [selectedItemID, setSelectedItemID] = useState(0);
-  const [selectedTab, setSelectedTab] = useState<TabType>(TabType.members);
+  const [selectedTab, setSelectedTab] = useState<TabType>(TabType.details);
 
   const { isFetched, isLoading, items } = useValues(userProjectsLogic);
   const { getItems } = useActions(userProjectsLogic);
@@ -46,7 +46,6 @@ const EditActivities: FC = () => {
   if ((isFetched && items.length === 0) || selectedItemID === 0)
     return <NoItemsText text="Ups! parece que no tienes proyectos." />;
   if (!isFetched) return <NoItemsText error text="Error cargando tus proyectos, inténtalo más tarde." />;
-  console.log(items, selectedItemID);
   return (
     <>
       <SelectOption
@@ -76,7 +75,7 @@ const EditActivities: FC = () => {
         </h2>
       </div>
       <div className="overflow-x-hidden">
-        <Details open={selectedTab === TabType.details} />
+        <Details open={selectedTab === TabType.details} project={getProjectByID(items, selectedItemID)} />
         <Members open={selectedTab === TabType.members} project={getProjectByID(items, selectedItemID)} />
       </div>
     </>
