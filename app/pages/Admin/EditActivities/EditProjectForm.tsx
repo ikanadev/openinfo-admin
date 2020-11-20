@@ -61,7 +61,7 @@ const EditProjectForm: FC<Props> = ({ open, cancel, project }) => {
 
   useEffect(() => {
     setData(project);
-    if (project.objetivosEspecificos.length === 0) {
+    if (project.objetivosEspecificos.length === 0 && form.objetivosEspecificos.length === 0) {
       addEmptyOption();
     }
     if (project.banner) {

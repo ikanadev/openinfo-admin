@@ -9,6 +9,7 @@ export default {
     searchUser: (term: string): string => `/openInfo/buscarUsuario/${term}`,
     postTeam: `/openInfo/registrarEquipo`,
     getTeams: `/openInfo/equipos`,
+    searchProject: (term: string): string => `/openInfo/buscarProyecto/${term}`,
   },
   common: {
     projectTypes: '/openInfo/tipoProyectos',

@@ -24,6 +24,12 @@ export interface SearchResult {
   correo: string;
 }
 
+export interface SearchProjectResult {
+  id: number;
+  nombre: string;
+  encargado: User | null;
+}
+
 // ItemType is an interface which represents an intem for select forms
 export interface ItemType {
   id: number;

@@ -37,8 +37,10 @@ module.exports = () => {
         },
         {
           test: /\.(gif|png|jpe?g|svg)$/i,
-          loaders: [
-            'file-loader',
+          use: [
+            {
+              loader: 'file-loader',
+            },
             {
               loader: 'image-webpack-loader',
               options: {
@@ -63,10 +65,7 @@ module.exports = () => {
         {
           test: /\.css?$/,
           use: [
-            'style-loader',
-            {
-              loader: MiniCssExtractPlugin.loader,
-            },
+            MiniCssExtractPlugin.loader,
             {
               loader: 'css-loader',
               options: {
@@ -81,38 +80,38 @@ module.exports = () => {
     resolve: {
       extensions: ['.ts', '.tsx', '.js'],
     },
-    optimization: {
-      minimizer: [
-        new UglifyJsPlugin({
-          // sourceMap: true,
-          uglifyOptions: {
-            ecma: 8,
-            warnings: false,
-            compress: {
-              conditionals: true,
-              unused: true,
-              comparisons: true,
-              sequences: true,
-              dead_code: true,
-              evaluate: true,
-              if_return: true,
-              join_vars: true,
-            },
-            output: {
-              comments: false,
-              beautify: false,
-            },
-            toplevel: false,
-            nameCache: null,
-            ie8: false,
-            keep_classnames: undefined,
-            keep_fnames: false,
-            safari10: false,
-          },
-        }),
-        new OptimizeCSSAssetsPlugin({}),
-      ],
-    },
+    // optimization: {
+    //   minimizer: [
+    //     new UglifyJsPlugin({
+    //       // sourceMap: true,
+    //       uglifyOptions: {
+    //         ecma: 8,
+    //         warnings: false,
+    //         compress: {
+    //           conditionals: true,
+    //           unused: true,
+    //           comparisons: true,
+    //           sequences: true,
+    //           dead_code: true,
+    //           evaluate: true,
+    //           if_return: true,
+    //           join_vars: true,
+    //         },
+    //         output: {
+    //           comments: false,
+    //           beautify: false,
+    //         },
+    //         toplevel: false,
+    //         nameCache: null,
+    //         ie8: false,
+    //         keep_classnames: undefined,
+    //         keep_fnames: false,
+    //         safari10: false,
+    //       },
+    //     }),
+    //     // new OptimizeCSSAssetsPlugin({}),
+    //   ],
+    // },
     // devtool: 'eval-source-map',
     plugins: [
       new HtmlWebPackPlugin({

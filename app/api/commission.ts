@@ -12,6 +12,7 @@ import {
   NewTeamReq,
   NewTeamRes,
   TeamsRes,
+  SearchProjectRes,
 } from './types';
 
 interface CommissionAPI {
@@ -20,6 +21,7 @@ interface CommissionAPI {
   searchUser(term: string, calcelToken: CancelToken): Promise<SearchUserRes>;
   postTeam(data: NewTeamReq): Promise<NewTeamRes>;
   getTeams(): Promise<TeamsRes>;
+  searchProject(term: string, cancelToken: CancelToken): Promise<SearchProjectRes>;
 }
 
 export default (axios: AxiosInstance): CommissionAPI => ({
@@ -48,6 +50,10 @@ export default (axios: AxiosInstance): CommissionAPI => ({
   },
   getTeams: async () => {
     const resp = await axios.get<TeamsRes>(endpoints.commission.getTeams);
+    return resp.data;
+  },
+  searchProject: async (term, cancelToken) => {
+    const resp = await axios.get<SearchProjectRes>(endpoints.commission.searchProject(term), { cancelToken });
     return resp.data;
   },
 });
