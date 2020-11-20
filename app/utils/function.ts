@@ -1,5 +1,6 @@
 import { Roles } from 'store/auth/types';
-import { USER_TOKEN } from './const';
+import { USER_TOKEN, IMG_ROUTE } from './const';
+import conf from './config';
 
 // This function returns the bearer token in the next order
 // of priority: User, Admin, empty
@@ -80,6 +81,8 @@ export const getRolesText = (types: Roles[]): string[] => {
   });
   return rolesText;
 };
+
+export const getImgURL = (imgName: string): string => `${conf.apiUrl}${IMG_ROUTE}${imgName}`;
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export const getKeyValue = <T extends object, K extends keyof T>(obj: T, key: K): T[K] => obj[key];

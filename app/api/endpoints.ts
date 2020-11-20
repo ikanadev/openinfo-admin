@@ -22,5 +22,6 @@ export default {
   projectLeader: {
     getProjects: (code: string): string => `/openInfo/proyectosUsuario/${code}`,
     postNewMember: `/openInfo/agregarParticipante`,
+    updateProject: (id: number): string => `/openInfo/actualizarProyecto/${id}`,
   },
 };

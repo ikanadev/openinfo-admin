@@ -1,10 +1,12 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Transition } from '@headlessui/react';
+import { useActions, useValues } from 'kea';
 
 import ProjectDetails from 'components/ProjectDetails';
 import EditProjectForm from './EditProjectForm';
 
 import { LeaderProject } from 'store/data/types';
+import updateProjectLogic from 'store/forms/updateProject';
 
 interface Props {
   open: boolean;
@@ -12,10 +14,10 @@ interface Props {
 }
 
 const EditActivities: FC<Props> = ({ open, project }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const toggleEdit = () => {
-    setIsEditing((prev) => !prev);
-  };
+  const { setShowForm } = useActions(updateProjectLogic);
+  const { showForm } = useValues(updateProjectLogic);
+  const closeForm = () => setShowForm(false);
+  const openForm = () => setShowForm(true);
   return (
     <Transition
       show={open}
@@ -24,8 +26,8 @@ const EditActivities: FC<Props> = ({ open, project }) => {
       enterTo="transform translate-x-0"
       className="min-w-full relative"
     >
-      <ProjectDetails open={!isEditing} project={project} onEdit={toggleEdit} />
-      <EditProjectForm open={isEditing} cancel={toggleEdit} project={project} />
+      <ProjectDetails open={!showForm} project={project} onEdit={openForm} />
+      <EditProjectForm open={showForm} cancel={closeForm} project={project} />
     </Transition>
   );
 };

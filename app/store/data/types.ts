@@ -1,4 +1,4 @@
-import { Team, ProjectType, TeamWithType, Participant } from 'types/common';
+import { Team, ProjectType, TeamWithType, Participant, ItemType } from 'types/common';
 
 export interface Sponsor {
   id: number;
@@ -31,8 +31,7 @@ export interface LeaderProject {
   vistas: null | number;
   codigo: string;
   habilitado: boolean;
-  // TODO: this will be an ID or an object
-  tipoProyecto: null | unknown;
+  tipoProyecto: null | ItemType;
   equipo: TeamWithType;
   gestion: null | number;
   createAt: string;

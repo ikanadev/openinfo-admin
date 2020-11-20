@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
 
 import { Sponsor, TeamStore, LeaderProject } from 'store/data/types';
-import { SearchResult, ItemType, User, LeaderTeam, Participant } from 'types/common';
+import { SearchResult, ItemType, User, LeaderTeam, Participant, ProjectType } from 'types/common';
 export const FORM_URLENCODED = 'application/x-www-form-urlencoded';
 
 export type UploadPercent = (percent: number) => void;
@@ -129,5 +129,37 @@ export interface NewMemberRes {
   participante: Participant;
   proyecto: {
     id: number;
+  };
+}
+
+export interface UpdateProjectReq {
+  nombre: string;
+  problematica: string;
+  objetivoGeneral: string;
+  alcance: string;
+  beneficiarios: string;
+  valorAgregado: string;
+  descripcion: string;
+  linkVideo: string;
+  idTipoProyecto: string;
+  objetivos: string;
+  area: ProjectType;
+  banner: File;
+}
+export interface UpdateProjectRes {
+  proyecto: {
+    id: number;
+    nombre: string;
+    problematica: string;
+    objetivoGeneral: string;
+    objetivosEspecificos: string;
+    alcance: string;
+    beneficiarios: string;
+    valorAgregado: string;
+    descripcion: string;
+    banner: string;
+    linkVideo: string;
+    area: ProjectType;
+    tipoProyecto: ItemType;
   };
 }

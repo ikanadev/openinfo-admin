@@ -6,6 +6,7 @@ import Subtitle from 'components/Subtitle';
 import { Pencil } from 'components/Icons';
 
 import { LeaderProject } from 'store/data/types';
+import { getImgURL } from 'utils/function';
 
 interface Props {
   open: boolean;
@@ -60,7 +61,7 @@ const ProjectDetails: FC<Props> = ({ open, project, onEdit }) => {
       <Detail name="Valor agregado:" value={project.valorAgregado} />
       <p className="font-medium">Banner:</p>
       {project.banner ? (
-        <img className="max-w-full h-auto rounded-md" src={project.banner} alt="" />
+        <img className="max-w-full h-auto rounded-md" src={getImgURL(project.banner)} alt="" />
       ) : (
         <p className="italic opacity-75 flex-1 text-center">(Sin Banner)</p>
       )}

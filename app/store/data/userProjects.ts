@@ -4,6 +4,7 @@ import api from 'api';
 import authLogic from 'store/auth';
 import { LeaderProject } from './types';
 import { Participant } from 'types/common';
+import { UpdateProjectRes } from 'api/types';
 
 interface Values {
   items: LeaderProject[];
@@ -16,6 +17,7 @@ interface Actions {
   setIsFetched: (value: boolean) => { value: boolean };
   setIsLoading: (value: boolean) => { value: boolean };
   addMember: (member: Participant, projID: number) => { member: Participant; projID: number };
+  updateProject: (data: UpdateProjectRes) => { data: UpdateProjectRes };
 }
 const initialValue: Values = {
   items: [],
@@ -29,6 +31,7 @@ const userProjectsLogic = kea<MakeLogicType<Values, Actions, null>>({
     setIsFetched: (value) => ({ value }),
     setIsLoading: (value) => ({ value }),
     addMember: (member, projID) => ({ member, projID }),
+    updateProject: (data) => ({ data }),
   },
   defaults: initialValue,
   reducers: {
@@ -39,6 +42,36 @@ const userProjectsLogic = kea<MakeLogicType<Values, Actions, null>>({
           if (pr.id === projID) {
             const project: LeaderProject = { ...pr, participantes: [...pr.participantes, member] };
             return project;
+          }
+          return pr;
+        });
+      },
+      updateProject: (state, { data: { proyecto } }) => {
+        return state.map((pr) => {
+          if (pr.id === proyecto.id) {
+            const newPr: LeaderProject = {
+              id: proyecto.id,
+              nombre: proyecto.nombre,
+              problematica: proyecto.problematica,
+              objetivoGeneral: proyecto.objetivoGeneral,
+              objetivosEspecificos: proyecto.objetivosEspecificos.split('_'),
+              alcance: proyecto.alcance,
+              beneficiarios: proyecto.beneficiarios,
+              valorAgregado: proyecto.valorAgregado,
+              descripcion: proyecto.descripcion,
+              banner: proyecto.banner,
+              linkVideo: proyecto.linkVideo,
+              area: proyecto.area,
+              vistas: pr.vistas,
+              codigo: pr.codigo,
+              habilitado: pr.habilitado,
+              tipoProyecto: proyecto.tipoProyecto,
+              equipo: pr.equipo,
+              gestion: pr.gestion,
+              createAt: pr.createAt,
+              participantes: pr.participantes,
+            };
+            return newPr;
           }
           return pr;
         });
