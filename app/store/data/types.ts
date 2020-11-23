@@ -1,4 +1,4 @@
-import { Team, ProjectType, TeamWithType, Participant, ItemType } from 'types/common';
+import { Team, ProjectType, TeamWithType, Participant, ItemType, Jury } from 'types/common';
 
 export interface Sponsor {
   id: number;
@@ -36,4 +36,16 @@ export interface LeaderProject {
   gestion: null | number;
   createAt: string;
   participantes: Participant[];
+}
+
+export interface JuryStore extends Jury {
+  proyectos: {
+    id: number;
+    proyecto: LeaderProject;
+    innovacion: null | number;
+    impacto: null | number;
+    funcionalidad: null | number;
+    ux: null | number;
+    presentacion: null | number;
+  }[];
 }

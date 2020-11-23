@@ -10,6 +10,8 @@ export default {
     postTeam: `/openInfo/registrarEquipo`,
     getTeams: `/openInfo/equipos`,
     searchProject: (term: string): string => `/openInfo/buscarProyecto/${term}`,
+    newJury: '/openInfo/registrarJurado',
+    juries: '/openInfo/jurados',
   },
   common: {
     projectTypes: '/openInfo/tipoProyectos',

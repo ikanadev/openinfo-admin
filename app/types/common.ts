@@ -44,6 +44,13 @@ export interface User {
   habilitado: boolean;
 }
 
+export interface Jury {
+  id: number;
+  gradoAcademico: string;
+  telefono: string;
+  usuario: User;
+}
+
 export interface Participant {
   usuario: User;
   gradoAcademico: string | null;

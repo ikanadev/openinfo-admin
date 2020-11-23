@@ -22,7 +22,7 @@ const SelectOption: FC<Props> = ({
   noDefault = false,
 }) => {
   return (
-    <div className={`my-4 flex items-center ${disabled ? 'opacity-25' : 'opacity-100'}`}>
+    <div className={`my-4 flex items-center z-10 ${disabled ? 'opacity-25' : 'opacity-100'}`}>
       <Listbox value={selectedItem} onChange={setSelectedItem}>
         {() => (
           <>

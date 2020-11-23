@@ -13,6 +13,9 @@ import {
   NewTeamRes,
   TeamsRes,
   SearchProjectRes,
+  NewJuryReq,
+  NewJuryRes,
+  JuriesRes,
 } from './types';
 
 interface CommissionAPI {
@@ -22,6 +25,8 @@ interface CommissionAPI {
   postTeam(data: NewTeamReq): Promise<NewTeamRes>;
   getTeams(): Promise<TeamsRes>;
   searchProject(term: string, cancelToken: CancelToken): Promise<SearchProjectRes>;
+  postJury(data: NewJuryReq): Promise<NewJuryRes>;
+  getJuries(): Promise<JuriesRes>;
 }
 
 export default (axios: AxiosInstance): CommissionAPI => ({
@@ -54,6 +59,14 @@ export default (axios: AxiosInstance): CommissionAPI => ({
   },
   searchProject: async (term, cancelToken) => {
     const resp = await axios.get<SearchProjectRes>(endpoints.commission.searchProject(term), { cancelToken });
+    return resp.data;
+  },
+  postJury: async (data) => {
+    const resp = await axios.post<NewJuryRes>(endpoints.commission.newJury, data);
+    return resp.data;
+  },
+  getJuries: async () => {
+    const resp = await axios.get<JuriesRes>(endpoints.commission.juries);
     return resp.data;
   },
 });

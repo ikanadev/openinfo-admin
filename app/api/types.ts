@@ -1,7 +1,16 @@
 import { AxiosRequestConfig } from 'axios';
 
-import { Sponsor, TeamStore, LeaderProject } from 'store/data/types';
-import { SearchResult, ItemType, User, LeaderTeam, Participant, ProjectType, SearchProjectResult } from 'types/common';
+import { Sponsor, TeamStore, LeaderProject, JuryStore } from 'store/data/types';
+import {
+  SearchResult,
+  ItemType,
+  User,
+  LeaderTeam,
+  Participant,
+  ProjectType,
+  SearchProjectResult,
+  Jury,
+} from 'types/common';
 export const FORM_URLENCODED = 'application/x-www-form-urlencoded';
 
 export type UploadPercent = (percent: number) => void;
@@ -168,10 +177,26 @@ export interface UpdateProjectRes {
   };
 }
 
-// TODO: This will create a new Jury in every request
 export interface NewJuryReq {
   codRegistro: string;
   idProyecto: number;
   gradoAcademico: string;
   telefono: string;
+}
+export interface NewJuryRes {
+  registroJurado: {
+    id: number;
+    jurado: Jury;
+    proyecto: LeaderProject;
+    innovacion: null | number;
+    impacto: null | number;
+    funcionalidad: null | number;
+    ux: null | number;
+    presentacion: null | number;
+  };
+  mensaje: string;
+}
+
+export interface JuriesRes {
+  jurados: JuryStore[];
 }
