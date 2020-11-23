@@ -11,15 +11,7 @@ import SelectOption from 'components/SelectOption';
 import Progress from 'components/Progress';
 
 import newMemberLogic from 'store/forms/newMember';
-import { ItemType } from 'types/common';
-
-const grados: ItemType[] = [
-  { id: 1, nombre: 'Estudiante' },
-  { id: 2, nombre: 'Lic.' },
-  { id: 3, nombre: 'Ms. C.' },
-  { id: 4, nombre: 'Dr.' },
-  { id: 5, nombre: 'Ph. D.' },
-];
+import { GRADOS } from 'utils/const';
 
 interface Props {
   onClose: () => void;
@@ -71,7 +63,7 @@ const AddMemberForm: FC<Props> = ({ onClose, projectID }) => {
           <div className="flex-1">
             <SelectOption
               label="Grado académico:"
-              items={grados}
+              items={GRADOS}
               selectedItem={form.gradoAcademico}
               setSelectedItem={setGradoAc}
               disabled={isLoading}

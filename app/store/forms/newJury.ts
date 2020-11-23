@@ -5,6 +5,7 @@ import { SearchResult, SearchProjectResult, ItemType } from 'types/common';
 import notificationLogic from 'store/notifications';
 import juriesLogic from 'store/data/juries';
 import { DEFAULT_OPTION } from 'utils/const';
+import { GRADOS } from 'utils/const';
 
 interface Values {
   isLoading: boolean;
@@ -54,7 +55,20 @@ const newJuryLogic = kea<MakeLogicType<Values, Actions, null>>({
       setIsLoading: (_, { value }) => value,
     },
     form: {
-      setUser: (state, { user }) => ({ ...state, user }),
+      setUser: (state, { user }) => {
+        const newForm = { ...state };
+        newForm.user = user;
+        juriesLogic.values.items.forEach((jury) => {
+          if (jury.usuario.codRegistro === newForm.user?.codRegistro) {
+            newForm.telefono = jury.telefono;
+            const grado = GRADOS.find((gr) => gr.nombre === jury.gradoAcademico);
+            if (grado) {
+              newForm.gradoAcademico = grado;
+            }
+          }
+        });
+        return newForm;
+      },
       setProject: (state, { pr }) => ({ ...state, project: pr }),
       setGrado: (state, { grado }) => ({ ...state, gradoAcademico: grado }),
       setTelf: (state, { num }) => ({ ...state, telefono: num }),
