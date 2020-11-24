@@ -34,7 +34,7 @@ interface Actions {
   setContacto2: (value: string) => { value: string };
   setContacto3: (value: string) => { value: string };
   setDescripcion: (value: string) => { value: string };
-  setUser: (user: SearchResult) => { user: SearchResult };
+  setUser: (user: SearchResult | null) => { user: SearchResult | null };
 }
 const initialState: Values = {
   isLoading: false,

@@ -4,6 +4,7 @@ import { useActions } from 'kea';
 import { Transition } from '@headlessui/react';
 
 import SingleInput from 'components/SingleInput';
+import Item from 'components/Item';
 import { Search } from 'components/Icons';
 
 import api from 'api';
@@ -12,10 +13,13 @@ import { SearchResult } from 'types/common';
 
 interface Props {
   label: string;
-  onSelectResult: (result: SearchResult) => void;
+  labelSelected: string;
+  onSelectResult: (result: SearchResult | null) => void;
+  selectedResult: SearchResult | null;
+  disabled: boolean;
 }
 
-const SearchUser: FC<Props> = ({ onSelectResult, label }) => {
+const SearchUser: FC<Props> = ({ onSelectResult, label, labelSelected, selectedResult, disabled }) => {
   const [val, setVal] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -33,13 +37,7 @@ const SearchUser: FC<Props> = ({ onSelectResult, label }) => {
       .searchUser(term, cancelToken.token)
       .then((res) => {
         setIsLoading(false);
-        // setResults(res.usuarios); Uncomment this when duplicates results are fixed
-        setResults(
-          res.usuarios.filter((user, index, users) => {
-            const userFirstIndex = users.findIndex((u) => u.codRegistro === user.codRegistro);
-            return userFirstIndex === index;
-          }),
-        );
+        setResults(res.usuarios);
       })
       .catch((err) => {
         if (axios.isCancel(err)) return;
@@ -54,6 +52,11 @@ const SearchUser: FC<Props> = ({ onSelectResult, label }) => {
     setIsLoading(false);
     setResults([]);
   };
+
+  const setNullItem = () => {
+    onSelectResult(null);
+  };
+
   useEffect(() => {
     setResults([]);
     if (val === '') {
@@ -63,6 +66,20 @@ const SearchUser: FC<Props> = ({ onSelectResult, label }) => {
     }
     search(val);
   }, [val]);
+
+  if (selectedResult) {
+    return (
+      <Item
+        label={labelSelected}
+        text={selectedResult.nombre}
+        textSec={`(${selectedResult.codRegistro})`}
+        subText={selectedResult.correo}
+        onCancel={setNullItem}
+        disabled={disabled}
+      />
+    );
+  }
+
   return (
     <>
       <SingleInput

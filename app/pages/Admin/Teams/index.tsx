@@ -6,7 +6,6 @@ import SingleInput from 'components/SingleInput';
 import Button from 'components/Button';
 import SelectOption from 'components/SelectOption';
 import SearchUser from 'components/SearchUser';
-import SelectedUser from 'components/SelectedUser';
 import TeamsList from './TeamsList';
 
 import siteDataLogic from 'store/data/siteData';
@@ -41,11 +40,12 @@ const Teams: FC = () => {
         />
 
         <div className="mt-1">
-          <SearchUser label="Buscar encargado" onSelectResult={setUser} />
-          <SelectedUser
-            user={form.selectedUser}
-            subtitle="Encargado seleccionado:"
-            noUserText="Seleccione un usuario"
+          <SearchUser
+            label="Buscar encargado"
+            labelSelected="Encargado seleccionado"
+            onSelectResult={setUser}
+            selectedResult={form.selectedUser}
+            disabled={isLoading}
           />
           <Button label="Crear Equipo" type="proceed" onClick={postData} full />
         </div>

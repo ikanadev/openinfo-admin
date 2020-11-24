@@ -17,6 +17,7 @@ import leaderTeamsLogic from 'store/data/leaderTeams';
 import siteDataLogic from 'store/data/siteData';
 import { MenuItemData } from 'types/common';
 import { getItemsByRole } from './Menu/menuData';
+import juriesLogic from 'store/data/juries';
 
 const Admin: FC = () => {
   useMountedLogic(sponsorsLogic);
@@ -24,6 +25,7 @@ const Admin: FC = () => {
   useMountedLogic(leaderTeamsLogic);
   useMountedLogic(leaderProjectsLogic);
   useMountedLogic(userProjectsLogic);
+  useMountedLogic(juriesLogic);
   const history = useHistory();
   const { path } = useRouteMatch();
   const { logout } = useActions(authLogic);

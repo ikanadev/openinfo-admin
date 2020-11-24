@@ -18,7 +18,7 @@ interface Actions {
   clear: () => void;
   postData: () => void;
   setIsLoading: (value: boolean) => { value: boolean };
-  setUser: (user: SearchResult) => { user: SearchResult };
+  setUser: (user: SearchResult | null) => { user: SearchResult | null };
   setGroupName: (value: string) => { value: string };
   setTeamType: (item: ItemType) => { item: ItemType };
 }

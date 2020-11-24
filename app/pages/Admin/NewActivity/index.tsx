@@ -8,7 +8,6 @@ import { ProjectType } from 'types/common';
 import LoaderWithText from 'components/LoaderWithText';
 import NoItemsText from 'components/NoItemsText';
 import SearchUser from 'components/SearchUser';
-import SelectedUser from 'components/SelectedUser';
 import Switch from 'components/Switch';
 import SelectOption from 'components/SelectOption';
 import SingleInput from 'components/SingleInput';
@@ -59,11 +58,12 @@ const NewActivity: FC = () => {
       <Switch active={isContest} setActive={setIsContest} disabled={isLoadingForm} label="Participa en el concurso?" />
 
       <div className="mt-1">
-        <SearchUser label="Buscar encargado" onSelectResult={setUser} />
-        <SelectedUser
-          user={selectedUser}
-          subtitle="Encargado seleccionado:"
-          noUserText="Busque y seleccione un usuario"
+        <SearchUser
+          label="Buscar encargado"
+          labelSelected="Encargado seleccionado"
+          onSelectResult={setUser}
+          selectedResult={selectedUser}
+          disabled={isLoadingForm}
         />
       </div>
 

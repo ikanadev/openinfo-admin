@@ -6,7 +6,6 @@ import Button from 'components/Button';
 import SingleInput from 'components/SingleInput';
 import ImageSelector from 'components/ImageSelector';
 import SearchUser from 'components/SearchUser';
-import SelectedUser from 'components/SelectedUser';
 import SelectOption from 'components/SelectOption';
 import Progress from 'components/Progress';
 
@@ -43,11 +42,12 @@ const AddMemberForm: FC<Props> = ({ onClose, projectID }) => {
 
         <Progress isOpen={isLoading} percent={percentUploaded} title="Guardando" />
 
-        <SearchUser label="Buscar usuario" onSelectResult={setUser} />
-        <SelectedUser
-          user={form.selectedUser}
-          subtitle="Integrante a agregar:"
-          noUserText="Busque y seleccione un usuario"
+        <SearchUser
+          label="Buscar usuario"
+          labelSelected=""
+          onSelectResult={setUser}
+          selectedResult={form.selectedUser}
+          disabled={isLoading}
         />
 
         <div className="flex">

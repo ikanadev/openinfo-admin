@@ -28,6 +28,7 @@ const juriesLogic = kea<MakeLogicType<Values, Actions, null>>({
   actions: {
     getItems: true,
     setItems: (items) => ({ items }),
+    addJuryProject: (data) => ({ data }),
     setIsFetched: (value) => ({ value }),
     setIsLoading: (value) => ({ value }),
   },

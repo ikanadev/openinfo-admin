@@ -4,6 +4,7 @@ import { useActions } from 'kea';
 import { Transition } from '@headlessui/react';
 
 import SingleInput from 'components/SingleInput';
+import Item from 'components/Item';
 import { Search } from 'components/Icons';
 
 import api from 'api';
@@ -12,10 +13,13 @@ import { SearchProjectResult } from 'types/common';
 
 interface Props {
   label: string;
-  onSelectResult: (result: SearchProjectResult) => void;
+  labelSelected: string;
+  onSelectResult: (result: SearchProjectResult | null) => void;
+  selectedResult: SearchProjectResult | null;
+  disabled: boolean;
 }
 
-const SearchProject: FC<Props> = ({ onSelectResult, label }) => {
+const SearchProject: FC<Props> = ({ onSelectResult, label, labelSelected, selectedResult, disabled }) => {
   const [val, setVal] = useState('');
   const [results, setResults] = useState<SearchProjectResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -49,6 +53,10 @@ const SearchProject: FC<Props> = ({ onSelectResult, label }) => {
     setResults([]);
   };
 
+  const setNullItem = () => {
+    onSelectResult(null);
+  };
+
   useEffect(() => {
     setResults([]);
     if (val === '') {
@@ -58,6 +66,19 @@ const SearchProject: FC<Props> = ({ onSelectResult, label }) => {
     }
     search(val);
   }, [val]);
+
+  if (selectedResult) {
+    return (
+      <Item
+        label={labelSelected}
+        text={selectedResult.nombre}
+        textSec=""
+        subText={selectedResult.encargado ? selectedResult.encargado.nombre : ''}
+        onCancel={setNullItem}
+        disabled={disabled}
+      />
+    );
+  }
 
   return (
     <>

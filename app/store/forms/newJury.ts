@@ -21,8 +21,8 @@ interface Actions {
   clear: () => void;
   postData: () => void;
   setIsLoading: (value: boolean) => { value: boolean };
-  setUser: (user: SearchResult) => { user: SearchResult };
-  setProject: (pr: SearchProjectResult) => { pr: SearchProjectResult };
+  setUser: (user: SearchResult | null) => { user: SearchResult | null };
+  setProject: (pr: SearchProjectResult | null) => { pr: SearchProjectResult | null };
   setGrado: (grado: ItemType) => { grado: ItemType };
   setTelf: (num: string) => { num: string };
 }
@@ -38,6 +38,7 @@ const initialState: Values = {
 };
 
 const newJuryLogic = kea<MakeLogicType<Values, Actions, null>>({
+  connect: [juriesLogic],
   actions: {
     clear: () => true,
     postData: () => true,
@@ -48,34 +49,34 @@ const newJuryLogic = kea<MakeLogicType<Values, Actions, null>>({
     setTelf: (num) => ({ num }),
   },
   defaults: initialState,
-  reducers: {
+  reducers: () => ({
     isLoading: {
       postData: () => true,
       clear: () => false,
       setIsLoading: (_, { value }) => value,
     },
     form: {
-      setUser: (state, { user }) => {
-        const newForm = { ...state };
-        newForm.user = user;
-        juriesLogic.values.items.forEach((jury) => {
-          if (jury.usuario.codRegistro === newForm.user?.codRegistro) {
-            newForm.telefono = jury.telefono;
-            const grado = GRADOS.find((gr) => gr.nombre === jury.gradoAcademico);
-            if (grado) {
-              newForm.gradoAcademico = grado;
-            }
-          }
-        });
-        return newForm;
-      },
+      setUser: (state, { user }) => ({ ...state, user }),
       setProject: (state, { pr }) => ({ ...state, project: pr }),
       setGrado: (state, { grado }) => ({ ...state, gradoAcademico: grado }),
       setTelf: (state, { num }) => ({ ...state, telefono: num }),
       clear: () => initialState.form,
     },
-  },
+  }),
   listeners: ({ actions, values }) => ({
+    setUser: ({ user }) => {
+      if (!user) return;
+      const { items } = juriesLogic.values;
+      items.forEach((jury) => {
+        if (jury.usuario.codRegistro === user.codRegistro) {
+          actions.setTelf(jury.telefono);
+          const grado = GRADOS.find((gr) => gr.nombre === jury.gradoAcademico);
+          if (grado) {
+            actions.setGrado(grado);
+          }
+        }
+      });
+    },
     postData: async () => {
       const { form } = values;
       if (form.user === null || form.project === null || form.gradoAcademico.id === 0 || form.telefono === '') {
@@ -83,12 +84,11 @@ const newJuryLogic = kea<MakeLogicType<Values, Actions, null>>({
         actions.setIsLoading(false);
         return;
       }
-      if (!form.user) return;
       let exists = false;
       juriesLogic.values.items.forEach((jury) => {
         if (jury.usuario.codRegistro === form.user?.codRegistro) {
           jury.proyectos.forEach((pr) => {
-            if (pr.id === form.project?.id) {
+            if (pr.proyecto.id === form.project?.id) {
               exists = true;
             }
           });

@@ -20,7 +20,7 @@ interface Actions {
   postData: () => void;
   setIsLoading: (value: boolean) => { value: boolean };
   setName: (value: string) => { value: string };
-  setUser: (user: SearchResult) => { user: SearchResult };
+  setUser: (user: SearchResult | null) => { user: SearchResult | null };
   setTeam: (team: ItemType) => { team: ItemType };
   setArea: (value: ProjectType) => { value: ProjectType };
 }
