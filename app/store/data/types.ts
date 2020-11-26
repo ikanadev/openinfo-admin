@@ -1,4 +1,4 @@
-import { Team, ProjectType, TeamWithType, Participant, ItemType, Jury } from 'types/common';
+import { Team, ProjectType, TeamWithType, Participant, ItemType, Jury, User } from 'types/common';
 
 export interface Sponsor {
   id: number;
@@ -15,6 +15,21 @@ export interface TeamStore {
   equipos: Team[];
 }
 
+export interface Talk {
+  id: number;
+  nombre: string;
+  descripcion: string | null;
+  banner: string | null;
+  video: string | null;
+  linkOficial: string | null;
+  expositor: User;
+  gradoAcademico: string | null;
+  institucion: string | null;
+  telefono: string | null;
+  foto: string | null;
+  habilitado: boolean;
+}
+
 export interface LeaderProject {
   id: number;
   nombre: string;
@@ -27,6 +42,7 @@ export interface LeaderProject {
   descripcion: null | string;
   banner: null | string;
   linkVideo: null | string;
+  linkOficial: null | string;
   area: ProjectType;
   vistas: null | number;
   codigo: string;

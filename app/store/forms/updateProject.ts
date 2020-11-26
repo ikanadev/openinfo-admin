@@ -52,6 +52,7 @@ const initialState: Values = {
     descripcion: null,
     banner: null,
     linkVideo: null,
+    linkOficial: null,
     area: ProjectType.concurso,
     vistas: null,
     codigo: '',

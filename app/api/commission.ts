@@ -18,6 +18,8 @@ import {
   JuriesRes,
   GradeReq,
   GradeRes,
+  AllActivitiesRes,
+  UpdateActivityReq,
 } from './types';
 
 interface CommissionAPI {
@@ -30,6 +32,8 @@ interface CommissionAPI {
   postJury(data: NewJuryReq): Promise<NewJuryRes>;
   getJuries(): Promise<JuriesRes>;
   postGrade(data: GradeReq): Promise<GradeRes>;
+  getAllActivities(): Promise<AllActivitiesRes>;
+  updateActivity(data: UpdateActivityReq): Promise<null>;
 }
 
 export default (axios: AxiosInstance): CommissionAPI => ({
@@ -74,6 +78,14 @@ export default (axios: AxiosInstance): CommissionAPI => ({
   },
   postGrade: async (data) => {
     const resp = await axios.post<GradeRes>(endpoints.commission.grade, data);
+    return resp.data;
+  },
+  getAllActivities: async () => {
+    const resp = await axios.get<AllActivitiesRes>(endpoints.commission.allActivities);
+    return resp.data;
+  },
+  updateActivity: async (data) => {
+    const resp = await axios.put<null>(endpoints.commission.updateActivity, data);
     return resp.data;
   },
 });

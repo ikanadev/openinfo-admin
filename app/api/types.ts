@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 
-import { Sponsor, TeamStore, LeaderProject, JuryStore } from 'store/data/types';
+import { Sponsor, TeamStore, LeaderProject, JuryStore, Talk } from 'store/data/types';
 import {
   SearchResult,
   ItemType,
@@ -212,4 +212,17 @@ export interface GradeReq {
 }
 export interface GradeRes {
   mensaje: string;
+}
+
+export interface AllActivitiesRes {
+  proyectosConcurso: LeaderProject[];
+  miniTalks: Talk[];
+  proyectosFeria: LeaderProject[];
+}
+
+export interface UpdateActivityReq {
+  idProyecto: number;
+  linkOficial: string;
+  habilitado: boolean;
+  area: ProjectType;
 }

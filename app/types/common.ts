@@ -73,6 +73,7 @@ export interface LeaderTeam extends Team {
 export enum ProjectType {
   feria = 'feria',
   concurso = 'concurso',
+  talk = 'talk',
 }
 
 export interface ProjectGrades {

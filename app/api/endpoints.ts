@@ -13,6 +13,8 @@ export default {
     newJury: '/openInfo/registrarJurado',
     juries: '/openInfo/jurados',
     grade: '/openInfo/registrarNota',
+    allActivities: '/openInfo/listaActividades',
+    updateActivity: '/openInfo/actualizarProyecto',
   },
   common: {
     projectTypes: '/openInfo/tipoProyectos',
