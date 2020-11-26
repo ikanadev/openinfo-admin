@@ -40,28 +40,36 @@ const JuryCard: FC<Props> = ({ jury }) => {
                       <Check />
                       <span className="ml-2 flex-1 w-0 truncate">Innovacion</span>
                     </div>
-                    <div className="ml-4 flex-shrink-0 font-medium text-lg">{pr.innovacion || 'Sin calificar'}</div>
+                    <div className="ml-4 flex-shrink-0 font-medium text-lg">
+                      {pr.innovacion === null ? 'Sin calificar' : pr.innovacion.toString()}
+                    </div>
                   </li>
                   <li className="pl-3 pr-4 py-1 flex items-center justify-between text-sm">
                     <div className="w-0 flex-1 flex items-center text-blue-600">
                       <Check />
                       <span className="ml-2 flex-1 w-0 truncate">Impacto</span>
                     </div>
-                    <div className="ml-4 flex-shrink-0 font-medium text-lg">{pr.impacto || 'Sin calificar'}</div>
+                    <div className="ml-4 flex-shrink-0 font-medium text-lg">
+                      {pr.impacto === null ? 'Sin calificar' : pr.impacto.toString()}
+                    </div>
                   </li>
                   <li className="pl-3 pr-4 py-1 flex items-center justify-between text-sm">
                     <div className="w-0 flex-1 flex items-center text-blue-600">
                       <Check />
                       <span className="ml-2 flex-1 w-0 truncate">Funcionalidad</span>
                     </div>
-                    <div className="ml-4 flex-shrink-0 font-medium text-lg">{pr.funcionalidad || 'Sin calificar'}</div>
+                    <div className="ml-4 flex-shrink-0 font-medium text-lg">
+                      {pr.funcionalidad === null ? 'Sin calificar' : pr.funcionalidad.toString()}
+                    </div>
                   </li>
                   <li className="pl-3 pr-4 py-1 flex items-center justify-between text-sm">
                     <div className="w-0 flex-1 flex items-center text-blue-600">
                       <Check />
                       <span className="ml-2 flex-1 w-0 truncate">Experiencia de Usuario</span>
                     </div>
-                    <div className="ml-4 flex-shrink-0 font-medium text-lg">{pr.ux || 'Sin calificar'}</div>
+                    <div className="ml-4 flex-shrink-0 font-medium text-lg">
+                      {pr.ux === null ? 'Sin calificar' : pr.ux.toString()}
+                    </div>
                   </li>
                   <li className="pl-3 pr-4 py-1 flex items-center justify-between text-sm">
                     <div className="w-0 flex-1 flex items-center text-blue-600">

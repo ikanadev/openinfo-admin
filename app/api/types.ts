@@ -200,3 +200,16 @@ export interface NewJuryRes {
 export interface JuriesRes {
   jurados: JuryStore[];
 }
+
+export interface GradeReq {
+  codRegistro: string;
+  idProyecto: number;
+  innovacion: number;
+  impacto: number;
+  funcionalidad: number;
+  ux: number;
+  presentacion: number;
+}
+export interface GradeRes {
+  mensaje: string;
+}

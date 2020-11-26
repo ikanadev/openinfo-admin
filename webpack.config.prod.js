@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const webpack = require('webpack');
 
@@ -79,6 +79,10 @@ module.exports = () => {
     },
     resolve: {
       extensions: ['.ts', '.tsx', '.js'],
+    },
+    optimization: {
+      minimize: true,
+      minimizer: [`...`, new CssMinimizerPlugin()],
     },
     // optimization: {
     //   minimizer: [

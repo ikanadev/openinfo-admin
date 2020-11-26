@@ -12,6 +12,7 @@ export default {
     searchProject: (term: string): string => `/openInfo/buscarProyecto/${term}`,
     newJury: '/openInfo/registrarJurado',
     juries: '/openInfo/jurados',
+    grade: '/openInfo/registrarNota',
   },
   common: {
     projectTypes: '/openInfo/tipoProyectos',

@@ -1,7 +1,7 @@
 import { kea, MakeLogicType } from 'kea';
 
 import api from 'api';
-import { NewJuryRes } from 'api/types';
+import { GradeReq, NewJuryRes } from 'api/types';
 import { JuryStore } from './types';
 
 interface Values {
@@ -14,6 +14,7 @@ interface Actions {
   getItems: () => void;
   setItems: (items: JuryStore[]) => { items: JuryStore[] };
   addJuryProject: (data: NewJuryRes) => { data: NewJuryRes };
+  setGrades: (data: GradeReq) => { data: GradeReq };
   setIsFetched: (value: boolean) => { value: boolean };
   setIsLoading: (value: boolean) => { value: boolean };
 }
@@ -29,6 +30,7 @@ const juriesLogic = kea<MakeLogicType<Values, Actions, null>>({
     getItems: true,
     setItems: (items) => ({ items }),
     addJuryProject: (data) => ({ data }),
+    setGrades: (data) => ({ data }),
     setIsFetched: (value) => ({ value }),
     setIsLoading: (value) => ({ value }),
   },
@@ -45,6 +47,31 @@ const juriesLogic = kea<MakeLogicType<Values, Actions, null>>({
     },
     items: {
       setItems: (_, { items }) => items,
+      setGrades: (state, { data }) => {
+        return state.map(
+          (jury): JuryStore => {
+            if (jury.usuario.codRegistro === data.codRegistro) {
+              return {
+                ...jury,
+                proyectos: jury.proyectos.map((pr) => {
+                  if (pr.proyecto.id === data.idProyecto) {
+                    return {
+                      ...pr,
+                      innovacion: data.innovacion,
+                      impacto: data.impacto,
+                      funcionalidad: data.funcionalidad,
+                      ux: data.ux,
+                      presentacion: data.presentacion,
+                    };
+                  }
+                  return pr;
+                }),
+              };
+            }
+            return jury;
+          },
+        );
+      },
       addJuryProject: (state, { data }) => {
         let isNew = true;
         const { registroJurado } = data;

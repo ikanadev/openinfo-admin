@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { useActions, useValues } from 'kea';
 
 import NewJuryForm from './NewJuryForm';
-import JuryCard from './JuryCard';
+import JuryCard from 'components/JuryCard';
 
 import juriesLogic from 'store/data/juries';
 import LoaderWithText from 'components/LoaderWithText';

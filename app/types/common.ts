@@ -74,3 +74,11 @@ export enum ProjectType {
   feria = 'feria',
   concurso = 'concurso',
 }
+
+export interface ProjectGrades {
+  innovacion: string;
+  impacto: string;
+  funcionalidad: string;
+  ux: string;
+  presentacion: string;
+}

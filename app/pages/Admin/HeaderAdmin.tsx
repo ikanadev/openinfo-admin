@@ -52,7 +52,7 @@ const HeaderAdmin: FC = () => {
               >
                 <Menu.Items
                   static
-                  className="absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
+                  className="absolute z-20 right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                 >
                   <div className="px-4 py-3">
                     <p className="text-sm leading-5">Inicio sesión como:</p>
