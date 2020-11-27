@@ -154,6 +154,7 @@ export interface UpdateProjectReq {
   valorAgregado: string;
   descripcion: string;
   linkVideo: string;
+  linkVideoOficial: string;
   idTipoProyecto: string;
   objetivos: string;
   area: ProjectType;
@@ -172,6 +173,7 @@ export interface UpdateProjectRes {
     descripcion: string;
     banner: string;
     linkVideo: string;
+    linkOficial: string;
     area: ProjectType;
     tipoProyecto: ItemType;
   };

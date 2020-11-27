@@ -95,20 +95,21 @@ const newMemberLogic = kea<MakeLogicType<Values, Actions, null>>({
   listeners: ({ actions, values }) => ({
     postData: async ({ prID }) => {
       const { form } = values;
-      if (
-        form.foto.size === 0 ||
-        !form.ci ||
-        !form.telefono ||
-        !form.selectedUser ||
-        form.gradoAcademico === DEFAULT_OPTION
-      ) {
-        notificationLogic.actions.addWarning(
-          'Llene los campos necesarios',
-          'Foto, CI, teléfono, grado y usuario con requeridos',
-        );
-        actions.setIsLoading(false);
-        return;
-      }
+      // if (
+      //   form.foto.size === 0 ||
+      //   !form.ci ||
+      //   !form.telefono ||
+      //   !form.selectedUser ||
+      //   form.gradoAcademico === DEFAULT_OPTION
+      // ) {
+      //   notificationLogic.actions.addWarning(
+      //     'Llene los campos necesarios',
+      //     'Foto, CI, teléfono, grado y usuario con requeridos',
+      //   );
+      //   actions.setIsLoading(false);
+      //   return;
+      // }
+      if (form.selectedUser === null) return;
       try {
         const resp = await api.projectLeader.postNewMember(
           {

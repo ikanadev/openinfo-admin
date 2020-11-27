@@ -36,6 +36,7 @@ const EditProjectForm: FC<Props> = ({ open, cancel, project }) => {
     setValorAgregado,
     setDescripcion,
     setLinkVideo,
+    setLinkOficial,
     setObjectives,
     setBanner,
     setFile,
@@ -91,6 +92,13 @@ const EditProjectForm: FC<Props> = ({ open, cancel, project }) => {
           onChangeValue={setLinkVideo}
           label="Url Video:"
           id="update-project-link-video"
+          placeholder=""
+        />
+        <SingleInput
+          value={form.linkOficial || ''}
+          onChangeValue={setLinkOficial}
+          label="Url Video Youtube:"
+          id="update-project-link-video-oficial"
           placeholder=""
         />
         <SelectOption

@@ -25,6 +25,7 @@ interface Actions {
   setDescripcion: (value: string) => { value: string };
   setBanner: (value: string) => { value: string };
   setLinkVideo: (value: string) => { value: string };
+  setLinkOficial: (value: string) => { value: string };
   setArea: (value: ProjectType) => { value: ProjectType };
   setTipoProyecto: (value: ItemType) => { value: ItemType };
   setObjectives: (value: string[]) => { value: string[] };
@@ -87,22 +88,23 @@ const isValidForm = (
   beneficiarios: string;
   valorAgregado: string;
   linkVideo: string;
+  linkOficial: string;
   tipoProyecto: ItemType;
 } => {
   if (
-    !form.descripcion ||
-    !form.nombre ||
-    !form.problematica ||
-    !form.objetivoGeneral ||
-    !form.alcance ||
-    !form.beneficiarios ||
-    !form.valorAgregado ||
-    !form.descripcion ||
-    !form.valorAgregado ||
-    !form.linkVideo ||
+    // !form.descripcion ||
+    // !form.nombre ||
+    // !form.problematica ||
+    // !form.objetivoGeneral ||
+    // !form.alcance ||
+    // !form.beneficiarios ||
+    // !form.valorAgregado ||
+    // !form.descripcion ||
+    // !form.valorAgregado ||
+    // !form.linkVideo ||
     !form.tipoProyecto ||
-    form.tipoProyecto.id === 0 ||
-    form.objetivosEspecificos.length === 0
+    form.tipoProyecto.id === 0
+    // form.objetivosEspecificos.length === 0
   ) {
     return false;
   }
@@ -121,6 +123,7 @@ const updateProjectLogic = kea<MakeLogicType<Values, Actions, null>>({
     setDescripcion: (value) => ({ value }),
     setBanner: (value) => ({ value }),
     setLinkVideo: (value) => ({ value }),
+    setLinkOficial: (value) => ({ value }),
     setArea: (value) => ({ value }),
     setFile: (file) => ({ file }),
     setTipoProyecto: (value) => ({ value }),
@@ -154,6 +157,7 @@ const updateProjectLogic = kea<MakeLogicType<Values, Actions, null>>({
       setDescripcion: (state, { value }) => ({ ...state, descripcion: value }),
       setBanner: (state, { value }) => ({ ...state, banner: value }),
       setLinkVideo: (state, { value }) => ({ ...state, linkVideo: value }),
+      setLinkOficial: (state, { value }) => ({ ...state, linkOficial: value }),
       setArea: (state, { value }) => ({ ...state, area: value }),
       setTipoProyecto: (state, { value }) => ({ ...state, tipoProyecto: value }),
       setObjectives: (state, { value }) => ({ ...state, objetivosEspecificos: value }),
@@ -171,7 +175,7 @@ const updateProjectLogic = kea<MakeLogicType<Values, Actions, null>>({
   listeners: ({ actions, values }) => ({
     postData: async () => {
       const { form, imageFile } = values;
-      if (!isValidForm(form) || imageFile.size === 0) {
+      if (!isValidForm(form)) {
         notificationLogic.actions.addWarning('Campos requeridos', 'Todos los campos son requeridos');
         actions.setIsLoading(false);
         return;
@@ -187,6 +191,7 @@ const updateProjectLogic = kea<MakeLogicType<Values, Actions, null>>({
             descripcion: form.descripcion,
             idTipoProyecto: form.tipoProyecto.id.toString(),
             linkVideo: form.linkVideo,
+            linkVideoOficial: form.linkOficial,
             nombre: form.nombre,
             objetivoGeneral: form.objetivoGeneral,
             objetivos: form.objetivosEspecificos.join('_'),

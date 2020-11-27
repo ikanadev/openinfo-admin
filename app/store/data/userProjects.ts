@@ -61,7 +61,7 @@ const userProjectsLogic = kea<MakeLogicType<Values, Actions, null>>({
               descripcion: proyecto.descripcion,
               banner: proyecto.banner,
               linkVideo: proyecto.linkVideo,
-              linkOficial: pr.linkOficial,
+              linkOficial: proyecto.linkOficial,
               area: proyecto.area,
               vistas: pr.vistas,
               codigo: pr.codigo,
