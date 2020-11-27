@@ -2,6 +2,7 @@ export default {
   auth: {
     login: '/oauth/token',
     checkToken: '/oauth/check_token',
+    register: '/openInfo/usuarios',
   },
   commission: {
     postSponsor: '/openInfo/auspiciadores',

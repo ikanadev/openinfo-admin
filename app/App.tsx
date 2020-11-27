@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 
 import Main from 'pages/Index';
 import Login from 'pages/Login';
+import Register from 'pages/Register';
 import Admin from 'pages/Admin';
 import NotificationCont from 'components/Notifications';
 
@@ -16,6 +17,9 @@ const App: FC = () => (
       <Switch>
         <Route path="/" exact>
           <Main />
+        </Route>
+        <Route path="/registro">
+          <Register />
         </Route>
         <Route path="/login">
           <Login />

@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 
 import conf from 'utils/config';
 import endpoints from 'api/endpoints';
-import { LoginReq, LoginResp, CheckTokenReq, CheckTokenResp } from './types';
+import { LoginReq, LoginResp, CheckTokenReq, CheckTokenResp, RegisterReq, RegisterRes } from './types';
 
 const basicAuth = {
   auth: {
@@ -14,6 +14,7 @@ const basicAuth = {
 interface AuthAPI {
   login(data: LoginReq): Promise<LoginResp>;
   checkToken(data: CheckTokenReq): Promise<CheckTokenResp>;
+  register(data: RegisterReq): Promise<RegisterRes>;
 }
 
 export default (axios: AxiosInstance): AuthAPI => ({
@@ -23,6 +24,10 @@ export default (axios: AxiosInstance): AuthAPI => ({
   },
   checkToken: async (data) => {
     const resp = await axios.post<CheckTokenResp>(endpoints.auth.checkToken, data, basicAuth);
+    return resp.data;
+  },
+  register: async (data) => {
+    const resp = await axios.post<RegisterRes>(endpoints.auth.register, data);
     return resp.data;
   },
 });

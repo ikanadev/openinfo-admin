@@ -226,3 +226,13 @@ export interface UpdateActivityReq {
   habilitado: boolean;
   area: ProjectType;
 }
+
+export interface RegisterReq {
+  nombre: string;
+  sexo: string;
+  correo: string;
+}
+export interface RegisterRes {
+  usuario: User;
+  mensaje: string;
+}

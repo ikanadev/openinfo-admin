@@ -1,5 +1,5 @@
 import React, { FC, useEffect, MouseEvent, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useValues, useActions } from 'kea';
 
 import { Eye, EyeOff } from 'components/Icons';
@@ -98,6 +98,9 @@ const Login: FC = () => {
             Ingresar
           </button>
         </form>
+        <p className="text-right text-blue-700 hover:underline cursor-pointer mt-2 italic mb-0">
+          <Link to="/registro">Registro</Link>
+        </p>
       </div>
     </div>
   );
