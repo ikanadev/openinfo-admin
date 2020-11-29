@@ -9,8 +9,8 @@ import { useInput } from 'utils/hooks';
 import notificationLogic from 'store/notifications';
 
 const Login: FC = () => {
-  const [name, onName] = useInput('');
-  const [email, onEmail] = useInput('');
+  const [name, onName, setName] = useInput('');
+  const [email, onEmail, setEmail] = useInput('');
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -20,9 +20,12 @@ const Login: FC = () => {
     e.preventDefault();
     try {
       setIsLoading(true);
+      setMessage('');
       const resp = await api.auth.register({ correo: email, nombre: name, sexo: '' });
       addSuccess('Hecho!', resp.mensaje);
       setIsLoading(false);
+      setName('');
+      setEmail('');
       setMessage(
         `Podrá iniciar sesión con el usuario: ${resp.usuario.codRegistro} (contraseña por defecto) y su correo: ${resp.usuario.correo}. Su cuenta estará disponible cuando sea parte de un proyecto o la comisión le designe algún rol.`,
       );

@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useValues, useActions } from 'kea';
 
 import newProjectFormLogic from 'store/forms/newProject';
@@ -25,15 +25,13 @@ const NewActivity: FC = () => {
   } = useValues(newProjectFormLogic);
   const { setUser, setArea, setName, setTeam, postData } = useActions(newProjectFormLogic);
 
-  const [isContest, setIsContest] = useState(area === ProjectType.concurso);
-
-  useEffect(() => {
-    if (isContest) {
+  const setProjectType = (value: boolean) => {
+    if (value) {
       setArea(ProjectType.concurso);
       return;
     }
     setArea(ProjectType.feria);
-  }, [isContest]);
+  };
 
   useEffect(() => {
     if (!isFetched) getItems();
@@ -55,7 +53,12 @@ const NewActivity: FC = () => {
         placeholder="Ej. Manejo de luces con IoT, Creacion de un sitio web..."
       />
 
-      <Switch active={isContest} setActive={setIsContest} disabled={isLoadingForm} label="Participa en el concurso?" />
+      <Switch
+        active={area === ProjectType.concurso}
+        setActive={setProjectType}
+        disabled={isLoadingForm}
+        label="Participa en el concurso?"
+      />
 
       <div className="mt-1">
         <SearchUser

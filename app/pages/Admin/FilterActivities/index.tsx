@@ -5,12 +5,86 @@ import Title from 'components/Title';
 import LoaderWithText from 'components/LoaderWithText';
 import NoItemsText from 'components/NoItemsText';
 import Table from './Table';
+import EditProjectModal from './EditProjectModal';
 
 import activitiesLogic from 'store/data/activities';
+import adminProjectLogic from 'store/forms/adminProject';
+import { ProjectType } from 'types/common';
+import { DEFAULT_OPTION } from 'utils/const';
 
 const FilterActivities: FC = () => {
   const { isFetched, isLoading, concurso, feria, talk } = useValues(activitiesLogic);
   const { getData } = useActions(activitiesLogic);
+
+  const { openForm, setForm } = useActions(adminProjectLogic);
+
+  const selectContestProject = (id: number) => {
+    const project = concurso.find((c) => c.id === id);
+    if (project) {
+      setForm({
+        project: {
+          id: project.id,
+          nombre: project.nombre,
+        },
+        area: project.area,
+        projectType: project.tipoProyecto || DEFAULT_OPTION,
+        description: project.descripcion || '',
+        habilitado: project.habilitado,
+        linkOficial: project.linkOficial || '',
+      });
+    }
+  };
+
+  const selectFairProject = (id: number) => {
+    const project = feria.find((f) => f.id === id);
+    if (project) {
+      setForm({
+        project: {
+          id: project.id,
+          nombre: project.nombre,
+        },
+        area: project.area,
+        projectType: project.tipoProyecto || DEFAULT_OPTION,
+        description: project.descripcion || '',
+        habilitado: project.habilitado,
+        linkOficial: project.linkOficial || '',
+      });
+    }
+  };
+
+  const selectTalk = (id: number) => {
+    const mtalk = talk.find((t) => t.id === id);
+    if (mtalk) {
+      setForm({
+        project: {
+          id: mtalk.id,
+          nombre: mtalk.nombre,
+        },
+        area: ProjectType.talk,
+        projectType: DEFAULT_OPTION,
+        description: mtalk.descripcion || '',
+        habilitado: mtalk.habilitado,
+        linkOficial: mtalk.linkOficial || '',
+      });
+    }
+  };
+
+  const selectItem = (type: ProjectType) => (id: number) => {
+    switch (type) {
+      case ProjectType.concurso:
+        selectContestProject(id);
+        break;
+      case ProjectType.feria:
+        selectFairProject(id);
+        break;
+      case ProjectType.talk:
+        selectTalk(id);
+        break;
+      default:
+        break;
+    }
+    openForm();
+  };
 
   useEffect(() => {
     if (!isFetched) getData();
@@ -22,33 +96,37 @@ const FilterActivities: FC = () => {
 
   return (
     <div>
+      <EditProjectModal />
       <Title text="Proyectos Concurso" />
       <Table
+        onSelectItem={selectItem(ProjectType.concurso)}
         items={concurso.map((c) => ({
           id: c.id,
           habilitado: c.habilitado,
           nombre: c.nombre,
-          link: c.linkVideo,
+          linkDrive: c.descripcion,
           linkYoutube: c.linkOficial,
         }))}
       />
       <Title text="Proyectos Feria" />
       <Table
+        onSelectItem={selectItem(ProjectType.feria)}
         items={feria.map((f) => ({
           id: f.id,
           habilitado: f.habilitado,
           nombre: f.nombre,
-          link: f.linkVideo,
+          linkDrive: f.descripcion,
           linkYoutube: f.linkOficial,
         }))}
       />
       <Title text="Mini Talks" />
       <Table
+        onSelectItem={selectItem(ProjectType.talk)}
         items={talk.map((t) => ({
           id: t.id,
           habilitado: t.habilitado,
           nombre: t.nombre,
-          link: t.video,
+          linkDrive: t.descripcion,
           linkYoutube: t.linkOficial,
         }))}
       />

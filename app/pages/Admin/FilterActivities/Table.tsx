@@ -5,12 +5,17 @@ interface Props {
     id: number;
     nombre: string;
     habilitado: boolean;
-    link: string | null;
+    linkDrive: string | null;
     linkYoutube: string | null;
   }[];
+  onSelectItem: (id: number) => void;
 }
 
-const Table: FC<Props> = ({ items }) => {
+const Table: FC<Props> = ({ items, onSelectItem }) => {
+  const onEdit = (id: number) => () => {
+    onSelectItem(id);
+  };
+
   return (
     <div className="shadow-lg overflow-hidden border-gray-200 rounded-lg">
       <table className="min-w-full">
@@ -18,9 +23,6 @@ const Table: FC<Props> = ({ items }) => {
           <tr>
             <th className="px-4 py-3 bg-gray-100 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
               Proyecto
-            </th>
-            <th className="px-4 py-3 bg-gray-100 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-              Videos
             </th>
             <th className="px-4 py-3 bg-gray-100 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
               Estado
@@ -33,27 +35,10 @@ const Table: FC<Props> = ({ items }) => {
         <tbody className="bg-white divide-y divide-gray-200">
           {items.map((item) => (
             <tr key={item.id}>
-              <td className="px-3 py-3 whitespace-nowrap">
-                <div className="text-sm font-medium text-gray-800">{item.nombre}</div>
-              </td>
               <td className="px-3 py-3 flex flex-col">
+                <p className="text-sm font-medium text-gray-800">{item.nombre}</p>
                 <p>
-                  <span className="text-sm text-gray-700">Link Video: </span>
-                  {item.link ? (
-                    <a
-                      className="text-sm text-blue-700 hover:underline cursor-pointer"
-                      href={item.link}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {item.link}
-                    </a>
-                  ) : (
-                    <span className="text-sm italic text-gray-500">No definido</span>
-                  )}
-                </p>
-                <p>
-                  <span className="text-sm text-gray-700">Link Youtube: </span>
+                  <span className="text-sm text-gray-700">Video: </span>
                   {item.linkYoutube ? (
                     <a
                       className="text-sm text-blue-700 hover:underline cursor-pointer"
@@ -62,6 +47,21 @@ const Table: FC<Props> = ({ items }) => {
                       rel="noreferrer"
                     >
                       {item.linkYoutube}
+                    </a>
+                  ) : (
+                    <span className="text-sm italic text-gray-500">No definido</span>
+                  )}
+                </p>
+                <p>
+                  <span className="text-sm text-gray-700">Documento: </span>
+                  {item.linkDrive ? (
+                    <a
+                      className="text-sm text-blue-700 hover:underline cursor-pointer"
+                      href={item.linkDrive}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {item.linkDrive}
                     </a>
                   ) : (
                     <span className="text-sm italic text-gray-500">No definido</span>
@@ -80,8 +80,10 @@ const Table: FC<Props> = ({ items }) => {
                 )}
               </td>
               <td className="px-3 py-3 whitespace-nowrap text-sm font-medium">
-                <span className="text-green-600 hover:text-green-900 mr-4">Ver</span>
-                <span className="text-indigo-600 hover:text-indigo-900">Editar</span>
+                <span className="text-indigo-600 hover:text-indigo-900 mr-4 cursor-pointer" onClick={onEdit(item.id)}>
+                  Editar
+                </span>
+                <span className="text-green-600 hover:text-green-900 cursor-pointer">Ver</span>
               </td>
             </tr>
           ))}

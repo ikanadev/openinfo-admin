@@ -225,6 +225,8 @@ export interface AllActivitiesRes {
 export interface UpdateActivityReq {
   idProyecto: number;
   linkOficial: string;
+  descripcion: string;
+  idTipoProyecto: number;
   habilitado: boolean;
   area: ProjectType;
 }

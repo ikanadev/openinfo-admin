@@ -1,11 +1,11 @@
 import {
   Plus,
-  Calendar,
+  //Calendar,
   ClipboardCheck,
   ClipboardList,
   UserAdd,
   UserGroup,
-  Speakerphone,
+  //Speakerphone,
   Filter,
 } from 'components/Icons';
 import Activities from 'pages/Admin/Activities';
@@ -13,8 +13,8 @@ import Juries from 'pages/Admin/Juries';
 import NewActivity from 'pages/Admin/NewActivity';
 import RateActivities from 'pages/Admin/RateActivities';
 import EditActivities from 'pages/Admin/EditActivities';
-import Schedule from 'pages/Admin/Schedule';
-import Sponsors from 'pages/Admin/Sponsors';
+//import Schedule from 'pages/Admin/Schedule';
+//import Sponsors from 'pages/Admin/Sponsors';
 import Teams from 'pages/Admin/Teams';
 import FilterActivities from 'pages/Admin/FilterActivities';
 
@@ -34,7 +34,7 @@ const menuData: MenuItemData[] = [
   {
     id: 3,
     icon: UserAdd,
-    title: 'Asignar Jurados',
+    title: 'Ver y Asignar Jurados',
     component: Juries,
     subpath: '/jurados',
     path: '/admin/jurados',
@@ -89,7 +89,7 @@ const menuData: MenuItemData[] = [
   {
     id: 9,
     icon: UserGroup,
-    title: 'Crear Equipos',
+    title: 'Ver y Crear Equipos',
     component: Teams,
     subpath: '/equipos',
     path: '/admin/equipos',
@@ -98,7 +98,7 @@ const menuData: MenuItemData[] = [
   {
     id: 10,
     icon: Filter,
-    title: 'Filtrar Actividades',
+    title: 'Ver Proyectos y Talks',
     component: FilterActivities,
     subpath: '/filtrar-actividades',
     path: '/admin/filtrar-actividades',

@@ -65,6 +65,7 @@ const Login: FC = () => {
                 placeholder="ejemplo@domain.bo"
                 value={email}
                 onChange={onEmail}
+                disabled={loadingAuth}
                 autoFocus
               />
             </div>
@@ -81,6 +82,7 @@ const Login: FC = () => {
                   id="input-password"
                   type={showPassw ? 'text' : 'password'}
                   value={passwd}
+                  disabled={loadingAuth}
                   onChange={onPasswd}
                 />
                 <span className="mx-2 text-gray-700 cursor-pointer" onClick={toggleShowPassw}>
@@ -90,12 +92,14 @@ const Login: FC = () => {
             </div>
           </div>
           <button
-            className="w-full max-w-md mx-auto bg-gradient-to-r from-purple-700 to-blue-600 text-white rounded py-2 font-medium tracking-wide uppercase"
+            className={`${
+              loadingAuth && 'animate-pulse opacity-50'
+            } w-full max-w-md mx-auto bg-gradient-to-r from-purple-700 to-blue-600 text-white rounded py-2 font-medium tracking-wide uppercase`}
             onClick={handleLogin}
             disabled={loadingAuth}
             type="submit"
           >
-            Ingresar
+            {loadingAuth ? 'Verificando' : 'Ingresar'}
           </button>
         </form>
         <p className="text-right text-blue-700 hover:underline cursor-pointer mt-2 italic mb-0">

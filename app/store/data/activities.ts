@@ -3,11 +3,14 @@ import { kea, MakeLogicType } from 'kea';
 import api from 'api';
 import { LeaderProject, Talk } from './types';
 import notificationLogic from 'store/notifications';
+import { ItemType } from 'types/common';
 
 interface UpdateData {
   id: number;
   habilitado: boolean;
   link: string;
+  descripcion: string;
+  projectType: ItemType;
 }
 
 interface Values {
@@ -44,7 +47,7 @@ const activitiesLogic = kea<MakeLogicType<Values, Actions, null>>({
     setConcurso: (items) => ({ items }),
     setFeria: (items) => ({ items }),
     setTalk: (items) => ({ items }),
-    updateConcurso: (items) => ({ items }),
+    updateConcurso: (data) => ({ data }),
     updateFeria: (data) => ({ data }),
     updateTalk: (data) => ({ data }),
     setIsFetched: (value) => ({ value }),
@@ -64,7 +67,7 @@ const activitiesLogic = kea<MakeLogicType<Values, Actions, null>>({
       updateTalk: (state, { data }) => {
         return state.map((t) => {
           if (t.id === data.id) {
-            return { ...t, habilitado: data.habilitado, linkOficial: data.link };
+            return { ...t, habilitado: data.habilitado, linkOficial: data.link, descripcion: data.descripcion };
           }
           return t;
         });
@@ -75,7 +78,13 @@ const activitiesLogic = kea<MakeLogicType<Values, Actions, null>>({
       updateFeria: (state, { data }) => {
         return state.map((t) => {
           if (t.id === data.id) {
-            return { ...t, habilitado: data.habilitado, linkOficial: data.link };
+            return {
+              ...t,
+              habilitado: data.habilitado,
+              linkOficial: data.link,
+              descripcion: data.descripcion,
+              tipoProyecto: data.projectType,
+            };
           }
           return t;
         });
@@ -86,7 +95,13 @@ const activitiesLogic = kea<MakeLogicType<Values, Actions, null>>({
       updateConcurso: (state, { data }) => {
         return state.map((t) => {
           if (t.id === data.id) {
-            return { ...t, habilitado: data.habilitado, linkOficial: data.link };
+            return {
+              ...t,
+              habilitado: data.habilitado,
+              linkOficial: data.link,
+              descripcion: data.descripcion,
+              tipoProyecto: data.projectType,
+            };
           }
           return t;
         });
