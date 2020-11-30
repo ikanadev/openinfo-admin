@@ -13,6 +13,7 @@ interface FormData {
   linkOficial: string;
   habilitado: boolean;
   area: ProjectType;
+  areaProyecto: ProjectType;
 }
 interface Values {
   form: FormData;
@@ -26,6 +27,7 @@ interface Actions {
   setLink: (value: string) => { value: string };
   setHabilitado: (value: boolean) => { value: boolean };
   setProjectType: (value: ItemType) => { value: ItemType };
+  setAreaProject: (value: ProjectType) => { value: ProjectType };
   openForm: () => void;
   closeForm: () => void;
   postData: () => void;
@@ -40,6 +42,7 @@ const initialState: Values = {
     linkOficial: '',
     habilitado: false,
     area: ProjectType.feria,
+    areaProyecto: ProjectType.feria,
   },
   isLoading: false,
   showForm: false,
@@ -52,6 +55,7 @@ const adminProjectLogic = kea<MakeLogicType<Values, Actions>>({
     setLink: (value) => ({ value }),
     setHabilitado: (value) => ({ value }),
     setProjectType: (value) => ({ value }),
+    setAreaProject: (value) => ({ value }),
     openForm: true,
     closeForm: true,
     postData: true,
@@ -74,6 +78,7 @@ const adminProjectLogic = kea<MakeLogicType<Values, Actions>>({
       setLink: (state, { value }) => ({ ...state, linkOficial: value }),
       setProjectType: (state, { value }) => ({ ...state, projectType: value }),
       setHabilitado: (state, { value }) => ({ ...state, habilitado: value }),
+      setAreaProject: (state, { value }) => ({ ...state, areaProyecto: value }),
     },
   },
   listeners: ({ actions, values }) => ({
@@ -92,6 +97,7 @@ const adminProjectLogic = kea<MakeLogicType<Values, Actions>>({
           idProyecto: form.project.id,
           idTipoProyecto: form.projectType.id,
           linkOficial: form.linkOficial,
+          areaProyecto: form.areaProyecto,
         });
         notificationLogic.actions.addSuccess('Hecho!', 'Proyecto actualizado');
         actions.closeForm();
@@ -101,6 +107,7 @@ const adminProjectLogic = kea<MakeLogicType<Values, Actions>>({
           habilitado: form.habilitado,
           link: form.linkOficial,
           projectType: form.projectType,
+          change: form.areaProyecto !== form.area,
         };
         switch (form.area) {
           case ProjectType.concurso:

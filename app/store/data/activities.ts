@@ -3,7 +3,7 @@ import { kea, MakeLogicType } from 'kea';
 import api from 'api';
 import { LeaderProject, Talk } from './types';
 import notificationLogic from 'store/notifications';
-import { ItemType } from 'types/common';
+import { ItemType, ProjectType } from 'types/common';
 
 interface UpdateData {
   id: number;
@@ -11,6 +11,7 @@ interface UpdateData {
   link: string;
   descripcion: string;
   projectType: ItemType;
+  change: boolean;
 }
 
 interface Values {
@@ -76,6 +77,7 @@ const activitiesLogic = kea<MakeLogicType<Values, Actions, null>>({
     feria: {
       setFeria: (_, { items }) => items,
       updateFeria: (state, { data }) => {
+        if (data.change) return state;
         return state.map((t) => {
           if (t.id === data.id) {
             return {
@@ -84,6 +86,7 @@ const activitiesLogic = kea<MakeLogicType<Values, Actions, null>>({
               linkOficial: data.link,
               descripcion: data.descripcion,
               tipoProyecto: data.projectType,
+              area: ProjectType.feria,
             };
           }
           return t;
@@ -93,6 +96,7 @@ const activitiesLogic = kea<MakeLogicType<Values, Actions, null>>({
     concurso: {
       setConcurso: (_, { items }) => items,
       updateConcurso: (state, { data }) => {
+        if (data.change) return state;
         return state.map((t) => {
           if (t.id === data.id) {
             return {
@@ -101,6 +105,7 @@ const activitiesLogic = kea<MakeLogicType<Values, Actions, null>>({
               linkOficial: data.link,
               descripcion: data.descripcion,
               tipoProyecto: data.projectType,
+              area: ProjectType.concurso,
             };
           }
           return t;
@@ -108,7 +113,25 @@ const activitiesLogic = kea<MakeLogicType<Values, Actions, null>>({
       },
     },
   },
-  listeners: ({ actions }) => ({
+  listeners: ({ actions, values }) => ({
+    updateFeria: ({ data }) => {
+      if (data.change) {
+        const item = values.feria.find((f) => f.id === data.id);
+        if (!item) return;
+        actions.setFeria(values.feria.filter((f) => f.id !== item.id));
+        actions.setConcurso([...values.concurso, item]);
+        actions.updateConcurso({ ...data, change: false });
+      }
+    },
+    updateConcurso: ({ data }) => {
+      if (data.change) {
+        const item = values.concurso.find((c) => c.id === data.id);
+        if (!item) return;
+        actions.setConcurso(values.concurso.filter((c) => c.id !== item.id));
+        actions.setFeria([...values.feria, item]);
+        actions.updateFeria({ ...data, change: false });
+      }
+    },
     getData: async () => {
       try {
         const resp = await api.commission.getAllActivities();

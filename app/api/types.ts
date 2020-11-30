@@ -229,6 +229,7 @@ export interface UpdateActivityReq {
   idTipoProyecto: number;
   habilitado: boolean;
   area: ProjectType;
+  areaProyecto: ProjectType;
 }
 
 export interface RegisterReq {
