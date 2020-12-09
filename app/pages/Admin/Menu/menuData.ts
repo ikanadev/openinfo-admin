@@ -7,6 +7,7 @@ import {
   UserGroup,
   //Speakerphone,
   Filter,
+  Pencil,
 } from 'components/Icons';
 import Activities from 'pages/Admin/Activities';
 import Juries from 'pages/Admin/Juries';
@@ -14,6 +15,7 @@ import NewActivity from 'pages/Admin/NewActivity';
 import RateActivities from 'pages/Admin/RateActivities';
 import EditActivities from 'pages/Admin/EditActivities';
 import Commission from 'pages/Admin/Commission';
+import Users from 'pages/Admin/Users';
 //import Schedule from 'pages/Admin/Schedule';
 //import Sponsors from 'pages/Admin/Sponsors';
 import Teams from 'pages/Admin/Teams';
@@ -72,10 +74,19 @@ const menuData: MenuItemData[] = [
   {
     id: 7,
     icon: UserGroup,
-    title: 'Comisión Openinfo',
+    title: 'Organizar Comisión',
     component: Commission,
     subpath: '/comision',
     path: '/admin/comision',
+    availableTo: Roles.Administrator,
+  },
+  {
+    id: 8,
+    icon: Pencil,
+    title: 'Administrar Usuarios',
+    component: Users,
+    subpath: '/users',
+    path: '/admin/users',
     availableTo: Roles.Administrator,
   },
   // {

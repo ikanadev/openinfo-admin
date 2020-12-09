@@ -259,3 +259,19 @@ export interface NewCommissionRes {
 export interface DelCommissionRes {
   mensaje: string;
 }
+
+export interface UpdateUserReq {
+  codRegistro: string;
+  nombre: string;
+  correo: string;
+}
+export interface UpdateUserRes {
+  mensaje: string;
+}
+
+export interface ResetPassUserReq {
+  codRegistro: string;
+}
+export interface ResetPassUserRes {
+  mensaje: string;
+}

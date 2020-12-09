@@ -8,6 +8,8 @@ export default {
     newCommission: '/openInfo/asignarComision',
     getCommission: '/openInfo/comision',
     delCommission: (code: string): string => `/openInfo/comision/${code}`,
+    resetPass: '/openInfo/resetPassword',
+    updateUser: '/openInfo/actualizarUsuario',
   },
   commission: {
     postSponsor: '/openInfo/auspiciadores',
