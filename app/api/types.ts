@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 
-import { Sponsor, TeamStore, LeaderProject, JuryStore, Talk } from 'store/data/types';
+import { Sponsor, TeamStore, LeaderProject, JuryStore, Talk, Commission } from 'store/data/types';
 import {
   SearchResult,
   ItemType,
@@ -239,5 +239,23 @@ export interface RegisterReq {
 }
 export interface RegisterRes {
   usuario: User;
+  mensaje: string;
+}
+
+export interface CommissionRes {
+  comision: Commission[];
+}
+
+export interface NewCommissionReq {
+  codRegistro: string;
+}
+export interface NewCommissionRes {
+  datos: {
+    usuario: Commission;
+  };
+  mensaje: string;
+}
+
+export interface DelCommissionRes {
   mensaje: string;
 }

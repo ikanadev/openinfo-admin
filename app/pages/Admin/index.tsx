@@ -19,6 +19,7 @@ import { MenuItemData } from 'types/common';
 import { getItemsByRole } from './Menu/menuData';
 import juriesLogic from 'store/data/juries';
 import activitiesLogic from 'store/data/activities';
+import commissionLogic from 'store/data/commission';
 
 const Admin: FC = () => {
   useMountedLogic(sponsorsLogic);
@@ -28,6 +29,7 @@ const Admin: FC = () => {
   useMountedLogic(userProjectsLogic);
   useMountedLogic(juriesLogic);
   useMountedLogic(activitiesLogic);
+  useMountedLogic(commissionLogic);
   const history = useHistory();
   const { path } = useRouteMatch();
   const { logout } = useActions(authLogic);

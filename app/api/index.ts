@@ -3,6 +3,7 @@ import Axios from 'axios';
 import conf from 'utils/config';
 import { getToken } from 'utils/function';
 import notificationLogic from 'store/notifications';
+import adminAPI from './admin';
 import authAPI from './auth';
 import commmissionAPI from './commission';
 import commonAPI from './common';
@@ -39,6 +40,7 @@ axios.interceptors.response.use(undefined, (error) => {
 });
 
 const api = {
+  admin: adminAPI(axios),
   auth: authAPI(axios),
   commission: commmissionAPI(axios),
   common: commonAPI(axios),

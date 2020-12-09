@@ -9,11 +9,15 @@ interface Props {
     linkYoutube: string | null;
   }[];
   onSelectItem: (id: number) => void;
+  onSetPrModal: (id: number) => void;
 }
 
-const Table: FC<Props> = ({ items, onSelectItem }) => {
+const Table: FC<Props> = ({ items, onSelectItem, onSetPrModal }) => {
   const onEdit = (id: number) => () => {
     onSelectItem(id);
+  };
+  const onView = (id: number) => () => {
+    onSetPrModal(id);
   };
 
   return (
@@ -22,7 +26,7 @@ const Table: FC<Props> = ({ items, onSelectItem }) => {
         <thead>
           <tr>
             <th className="px-4 py-3 bg-gray-100 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-              Proyecto
+              Datos
             </th>
             <th className="px-4 py-3 bg-gray-100 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
               Estado
@@ -83,7 +87,9 @@ const Table: FC<Props> = ({ items, onSelectItem }) => {
                 <span className="text-indigo-600 hover:text-indigo-900 mr-4 cursor-pointer" onClick={onEdit(item.id)}>
                   Editar
                 </span>
-                <span className="text-green-600 hover:text-green-900 cursor-pointer">Ver</span>
+                <span className="text-green-600 hover:text-green-900 cursor-pointer" onClick={onView(item.id)}>
+                  Ver
+                </span>
               </td>
             </tr>
           ))}

@@ -13,6 +13,7 @@ import Juries from 'pages/Admin/Juries';
 import NewActivity from 'pages/Admin/NewActivity';
 import RateActivities from 'pages/Admin/RateActivities';
 import EditActivities from 'pages/Admin/EditActivities';
+import Commission from 'pages/Admin/Commission';
 //import Schedule from 'pages/Admin/Schedule';
 //import Sponsors from 'pages/Admin/Sponsors';
 import Teams from 'pages/Admin/Teams';
@@ -67,6 +68,15 @@ const menuData: MenuItemData[] = [
     subpath: '/editar-actividades',
     path: '/admin/editar-actividades',
     availableTo: Roles.LeaderGroup,
+  },
+  {
+    id: 7,
+    icon: UserGroup,
+    title: 'Comisión Openinfo',
+    component: Commission,
+    subpath: '/comision',
+    path: '/admin/comision',
+    availableTo: Roles.Administrator,
   },
   // {
   //   id: 7,

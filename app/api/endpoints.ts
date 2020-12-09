@@ -4,6 +4,11 @@ export default {
     checkToken: '/oauth/check_token',
     register: '/openInfo/usuarios',
   },
+  admin: {
+    newCommission: '/openInfo/asignarComision',
+    getCommission: '/openInfo/comision',
+    delCommission: (code: string): string => `/openInfo/comision/${code}`,
+  },
   commission: {
     postSponsor: '/openInfo/auspiciadores',
     getSponsors: '/openInfo/auspiciadores',

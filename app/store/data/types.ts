@@ -65,3 +65,9 @@ export interface JuryStore extends Jury {
     presentacion: null | number;
   }[];
 }
+
+export interface Commission {
+  codRegistro: string;
+  nombre: string;
+  correo: string;
+}
