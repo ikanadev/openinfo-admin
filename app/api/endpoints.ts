@@ -3,6 +3,7 @@ export default {
     login: '/oauth/token',
     checkToken: '/oauth/check_token',
     register: '/openInfo/usuarios',
+    updatePassword: '/openInfo/cambiarPassword',
   },
   admin: {
     newCommission: '/openInfo/asignarComision',

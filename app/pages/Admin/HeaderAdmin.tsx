@@ -8,7 +8,7 @@ import { Logout, CaretDown, User } from 'components/Icons';
 import authLogic from 'store/auth';
 
 const HeaderAdmin: FC = () => {
-  const { logout } = useActions(authLogic);
+  const { logout, setTitle } = useActions(authLogic);
   const {
     data: { username, name },
     title,
@@ -19,6 +19,12 @@ const HeaderAdmin: FC = () => {
     logout();
     history.push('/login');
   };
+
+  const goToProfile = () => {
+    setTitle('Mi Perfil');
+    history.push('/admin/profile');
+  };
+
   return (
     <div className="flex items-center">
       <p className="uppercase font-bold text-blue-700 font-header text-2xl tracking-wide">OpenInfo</p>
@@ -52,33 +58,37 @@ const HeaderAdmin: FC = () => {
               >
                 <Menu.Items
                   static
-                  className="absolute z-20 right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
+                  className="absolute z-20 right-0 w-64 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                 >
                   <div className="px-4 py-3">
                     <p className="text-sm leading-5">Inicio sesión como:</p>
-                    <p className="text-sm font-semibold leading-5 text-gray-900 truncate">{`${name} (${username})`}</p>
+                    <p className="text-sm font-semibold leading-5 text-gray-900 truncate">{name}</p>
+                    <p className="text-sm italic leading-5 text-gray-600">({username})</p>
                   </div>
 
                   <div className="py-1">
-                    <Menu.Item
+                    {/* <Menu.Item
                       as="span"
                       disabled
                       className="flex justify-between w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 cursor-not-allowed opacity-50"
                     >
                       Mi perfil (pronto)
-                    </Menu.Item>
-                    {/* <Menu.Item>
+                    </Menu.Item> */}
+                    <Menu.Item>
                       {({ active }) => (
-                        <a
-                          href="#license"
+                        <div
+                          onClick={goToProfile}
                           className={`${
                             active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
-                          } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left`}
+                          } flex justify-start w-full px-4 py-2 text-sm leading-5 text-left cursor-pointer`}
                         >
-                          Salir
-                        </a>
+                          <span className="mr-2">
+                            <User />
+                          </span>
+                          Mi Perfil
+                        </div>
                       )}
-                    </Menu.Item> */}
+                    </Menu.Item>
                   </div>
 
                   <div className="py-1">

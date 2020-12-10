@@ -275,3 +275,11 @@ export interface ResetPassUserReq {
 export interface ResetPassUserRes {
   mensaje: string;
 }
+
+export interface UpdatePasswordReq {
+  codRegistro: string;
+  password: string;
+}
+export interface UpdatePasswordRes {
+  mensaje: string;
+}

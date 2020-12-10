@@ -6,20 +6,21 @@ import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import HeaderAdmin from './HeaderAdmin';
 import AdminGreeting from 'pages/Admin/Greeting';
 import CircleLoader from 'components/CircleLoader';
+import Profile from './Profile';
 import Menu from './Menu';
 
-import authLogic from 'store/auth';
-import sponsorsLogic from 'store/data/sponsors';
-import teamsLogic from 'store/data/teams';
 import leaderProjectsLogic from 'store/data/leaderProjects';
 import userProjectsLogic from 'store/data/userProjects';
 import leaderTeamsLogic from 'store/data/leaderTeams';
-import siteDataLogic from 'store/data/siteData';
-import { MenuItemData } from 'types/common';
-import { getItemsByRole } from './Menu/menuData';
-import juriesLogic from 'store/data/juries';
 import activitiesLogic from 'store/data/activities';
 import commissionLogic from 'store/data/commission';
+import { getItemsByRole } from './Menu/menuData';
+import sponsorsLogic from 'store/data/sponsors';
+import siteDataLogic from 'store/data/siteData';
+import juriesLogic from 'store/data/juries';
+import { MenuItemData } from 'types/common';
+import teamsLogic from 'store/data/teams';
+import authLogic from 'store/auth';
 
 const Admin: FC = () => {
   useMountedLogic(sponsorsLogic);
@@ -78,6 +79,9 @@ const Admin: FC = () => {
                 <Switch>
                   <Route exact path={path}>
                     <AdminGreeting />
+                  </Route>
+                  <Route path="/admin/profile">
+                    <Profile />
                   </Route>
                   {routes.map((route) => (
                     <Route key={route.id} path={`${path}${route.subpath}`}>
