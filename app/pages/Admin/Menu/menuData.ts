@@ -16,6 +16,7 @@ import RateActivities from 'pages/Admin/RateActivities';
 import EditActivities from 'pages/Admin/EditActivities';
 import Commission from 'pages/Admin/Commission';
 import Users from 'pages/Admin/Users';
+import Year from 'pages/Admin/Year';
 //import Schedule from 'pages/Admin/Schedule';
 //import Sponsors from 'pages/Admin/Sponsors';
 import Teams from 'pages/Admin/Teams';
@@ -87,6 +88,15 @@ const menuData: MenuItemData[] = [
     component: Users,
     subpath: '/users',
     path: '/admin/users',
+    availableTo: Roles.Administrator,
+  },
+  {
+    id: 11,
+    icon: Pencil,
+    title: 'Administrar Gestiones',
+    component: Year,
+    subpath: '/gestion',
+    path: '/admin/gestion',
     availableTo: Roles.Administrator,
   },
   // {

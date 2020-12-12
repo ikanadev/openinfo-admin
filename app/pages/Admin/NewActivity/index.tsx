@@ -43,6 +43,7 @@ const NewActivity: FC = () => {
   return (
     <div>
       <Title text="Crear Proyecto" />
+      {isLoadingForm && <LoaderWithText text="Registrando nuevo proyecto..." />}
       <Subtitle text="Datos" />
       <SingleInput
         value={name}
@@ -78,7 +79,7 @@ const NewActivity: FC = () => {
         disabled={isLoadingForm}
       />
 
-      <Button label="Crear Proyecto" type="proceed" onClick={postData} full />
+      <Button label="Crear Proyecto" type="proceed" onClick={postData} disabled={isLoadingForm} full />
     </div>
   );
 };

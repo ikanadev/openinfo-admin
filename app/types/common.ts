@@ -83,3 +83,9 @@ export interface ProjectGrades {
   ux: string;
   presentacion: string;
 }
+
+export interface DateInput {
+  year: string;
+  month: string;
+  day: string;
+}

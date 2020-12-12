@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 
-import { Sponsor, TeamStore, LeaderProject, JuryStore, Talk, Commission } from 'store/data/types';
+import { Sponsor, TeamStore, LeaderProject, JuryStore, Talk, Commission, Period } from 'store/data/types';
 import {
   SearchResult,
   ItemType,
@@ -281,5 +281,25 @@ export interface UpdatePasswordReq {
   password: string;
 }
 export interface UpdatePasswordRes {
+  mensaje: string;
+}
+
+export interface PeriodsRes {
+  gestiones: Period[];
+}
+
+export interface NewPeriodReq {
+  fechaIni: string;
+  fechaFin: string;
+  periodo: 'I' | 'II';
+}
+export interface NewPeriodRes {
+  gestion: Period;
+}
+
+export interface SetPeriodReq {
+  idGestion: number;
+}
+export interface SetPeriodRes {
   mensaje: string;
 }

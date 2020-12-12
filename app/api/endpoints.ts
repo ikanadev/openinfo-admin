@@ -11,6 +11,9 @@ export default {
     delCommission: (code: string): string => `/openInfo/comision/${code}`,
     resetPass: '/openInfo/resetPassword',
     updateUser: '/openInfo/actualizarUsuario',
+    getPeriods: '/openInfo/listaGestiones',
+    postPeriod: '/openInfo/registrarGestion',
+    setPeriod: '/openInfo/activarGestion',
   },
   commission: {
     postSponsor: '/openInfo/auspiciadores',

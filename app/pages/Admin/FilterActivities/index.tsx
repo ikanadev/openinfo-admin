@@ -110,10 +110,13 @@ const FilterActivities: FC = () => {
     switch (tab) {
       case ProjectType.feria:
         setTitle('Proyectos feria');
+        break;
       case ProjectType.concurso:
         setTitle('Proyectos concurso');
+        break;
       case ProjectType.talk:
         setTitle('Minitalks');
+        break;
       default:
         break;
     }

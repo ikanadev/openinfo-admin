@@ -54,20 +54,31 @@ export interface LeaderProject {
   participantes: Participant[];
 }
 
+export interface ProjectWithGrades {
+  id: number;
+  proyecto: LeaderProject;
+  innovacion: null | number;
+  impacto: null | number;
+  funcionalidad: null | number;
+  ux: null | number;
+  presentacion: null | number;
+}
+
 export interface JuryStore extends Jury {
-  proyectos: {
-    id: number;
-    proyecto: LeaderProject;
-    innovacion: null | number;
-    impacto: null | number;
-    funcionalidad: null | number;
-    ux: null | number;
-    presentacion: null | number;
-  }[];
+  proyectos: ProjectWithGrades[];
 }
 
 export interface Commission {
   codRegistro: string;
   nombre: string;
   correo: string;
+}
+
+export interface Period {
+  id: number;
+  gestion: string;
+  fechaIni: string;
+  fechaFin: string;
+  periodo: 'II' | 'I';
+  habilitado: boolean;
 }

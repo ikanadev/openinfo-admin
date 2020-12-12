@@ -89,6 +89,7 @@ const SearchProject: FC<Props> = ({ onSelectResult, label, labelSelected, select
         endIcon={Search}
         onChangeValue={setVal}
         value={val}
+        disabled={disabled}
       />
       <Transition
         show={val.length > 0}

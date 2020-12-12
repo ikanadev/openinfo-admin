@@ -10,6 +10,11 @@ import {
   ResetPassUserRes,
   UpdateUserReq,
   UpdateUserRes,
+  PeriodsRes,
+  NewPeriodReq,
+  NewPeriodRes,
+  SetPeriodReq,
+  SetPeriodRes,
 } from './types';
 
 interface AdminAPI {
@@ -18,6 +23,9 @@ interface AdminAPI {
   delCommission(code: string): Promise<DelCommissionRes>;
   resetPassUser(data: ResetPassUserReq): Promise<ResetPassUserRes>;
   updateUser(data: UpdateUserReq): Promise<UpdateUserRes>;
+  getPeriods(): Promise<PeriodsRes>;
+  postPeriod(data: NewPeriodReq): Promise<NewPeriodRes>;
+  activatePeriod(data: SetPeriodReq): Promise<SetPeriodRes>;
 }
 
 export default (axios: AxiosInstance): AdminAPI => ({
@@ -39,6 +47,18 @@ export default (axios: AxiosInstance): AdminAPI => ({
   },
   updateUser: async (data) => {
     const resp = await axios.put<UpdateUserRes>(endpoints.admin.updateUser, data);
+    return resp.data;
+  },
+  getPeriods: async () => {
+    const resp = await axios.get<PeriodsRes>(endpoints.admin.getPeriods);
+    return resp.data;
+  },
+  postPeriod: async (data) => {
+    const resp = await axios.post<NewPeriodRes>(endpoints.admin.postPeriod, data);
+    return resp.data;
+  },
+  activatePeriod: async (data) => {
+    const resp = await axios.post<SetPeriodRes>(endpoints.admin.setPeriod, data);
     return resp.data;
   },
 });

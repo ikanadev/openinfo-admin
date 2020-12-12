@@ -11,6 +11,7 @@ import SearchUser from 'components/SearchUser';
 import SelectOption from 'components/SelectOption';
 import SearchProject from 'components/SearchProject';
 import SingleInput from 'components/SingleInput';
+import LoaderWithText from 'components/LoaderWithText';
 
 const NewJuryForm: FC = () => {
   const [showForm, setShowForm] = useState(false);
@@ -30,6 +31,8 @@ const NewJuryForm: FC = () => {
       <Transition show={showForm}>
         <>
           <Title text="Registrar nuevo jurado" />
+
+          {isLoading && <LoaderWithText text="Registrando Jurado" />}
 
           <SearchUser
             label="Buscar jurado"

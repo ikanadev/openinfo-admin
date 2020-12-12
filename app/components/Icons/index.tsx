@@ -22,3 +22,4 @@ export { default as EyeOff } from './EyeOff';
 export { default as CaretDown } from './CaretDown';
 export { default as Pencil } from './Pencil';
 export { default as MinusCircle } from './MinusCircle';
+export { default as CaretUp } from './CaretUp';

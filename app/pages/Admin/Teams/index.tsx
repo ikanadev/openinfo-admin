@@ -10,6 +10,7 @@ import TeamsList from './TeamsList';
 
 import siteDataLogic from 'store/data/siteData';
 import teamFormLogic from 'store/forms/team';
+import LoaderWithText from 'components/LoaderWithText';
 
 const Teams: FC = () => {
   const { teamTypes } = useValues(siteDataLogic);
@@ -21,6 +22,8 @@ const Teams: FC = () => {
     <div className="flex">
       <div className="flex-1">
         <Title text="Crear Nuevo Equipo" />
+
+        {isLoading && <LoaderWithText text="Creando nuevo equipo..." />}
 
         <SelectOption
           label="Tipo de equipo:"
@@ -47,7 +50,7 @@ const Teams: FC = () => {
             selectedResult={form.selectedUser}
             disabled={isLoading}
           />
-          <Button label="Crear Equipo" type="proceed" onClick={postData} full />
+          <Button label="Crear Equipo" type="proceed" onClick={postData} full disabled={isLoading} />
         </div>
       </div>
       <div className="flex-1 ml-5">

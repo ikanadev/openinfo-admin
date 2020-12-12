@@ -20,6 +20,7 @@ import siteDataLogic from 'store/data/siteData';
 import juriesLogic from 'store/data/juries';
 import { MenuItemData } from 'types/common';
 import teamsLogic from 'store/data/teams';
+import periodLogic from 'store/data/period';
 import authLogic from 'store/auth';
 
 const Admin: FC = () => {
@@ -31,6 +32,7 @@ const Admin: FC = () => {
   useMountedLogic(juriesLogic);
   useMountedLogic(activitiesLogic);
   useMountedLogic(commissionLogic);
+  useMountedLogic(periodLogic);
   const history = useHistory();
   const { path } = useRouteMatch();
   const { logout } = useActions(authLogic);
