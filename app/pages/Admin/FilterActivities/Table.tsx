@@ -38,11 +38,13 @@ const Table: FC<Props> = ({ items, onSelectItem, onSetPrModal }) => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          <tr>
-            <td colSpan={3}>
-              <NoItemsText text="No hay elementos en esta lista " />
-            </td>
-          </tr>
+          {items.length === 0 && (
+            <tr>
+              <td colSpan={3}>
+                <NoItemsText text="No hay elementos en esta lista " />
+              </td>
+            </tr>
+          )}
           {items.map((item) => (
             <tr key={item.id}>
               <td className="px-3 py-3 flex flex-col">
