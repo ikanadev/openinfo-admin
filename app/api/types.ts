@@ -303,3 +303,11 @@ export interface SetPeriodReq {
 export interface SetPeriodRes {
   mensaje: string;
 }
+
+export interface SetPeriodStateReq {
+  idGestion: number;
+  estado: boolean;
+}
+export interface SetPeriodStateRes {
+  gestion: Period;
+}

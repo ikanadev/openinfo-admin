@@ -81,4 +81,5 @@ export interface Period {
   fechaFin: string;
   periodo: 'II' | 'I';
   habilitado: boolean;
+  estado: boolean;
 }

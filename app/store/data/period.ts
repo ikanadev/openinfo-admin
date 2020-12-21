@@ -14,6 +14,7 @@ interface Actions {
   setItems: (items: Period[]) => { items: Period[] };
   addItem: (item: Period) => { item: Period };
   activeItem: (id: number) => { id: number };
+  setState: (id: number, value: boolean) => { id: number; value: boolean };
   setIsFetched: (value: boolean) => { value: boolean };
   setIsLoading: (value: boolean) => { value: boolean };
 }
@@ -30,6 +31,7 @@ const periodLogic = kea<MakeLogicType<Values, Actions>>({
     setItems: (items) => ({ items }),
     addItem: (item) => ({ item }),
     activeItem: (id) => ({ id }),
+    setState: (id, value) => ({ id, value }),
     setIsFetched: (value) => ({ value }),
     setIsLoading: (value) => ({ value }),
   },
@@ -48,6 +50,7 @@ const periodLogic = kea<MakeLogicType<Values, Actions>>({
       setItems: (_, { items }) => items,
       addItem: (state, { item }) => [...state, item],
       activeItem: (state, { id }) => state.map((p) => ({ ...p, habilitado: p.id === id })),
+      setState: (state, { id, value }) => state.map((p) => ({ ...p, estado: p.id === id ? value : p.estado })),
     },
   },
   listeners: ({ actions }) => ({

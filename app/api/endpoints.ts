@@ -14,6 +14,7 @@ export default {
     getPeriods: '/openInfo/listaGestiones',
     postPeriod: '/openInfo/registrarGestion',
     setPeriod: '/openInfo/activarGestion',
+    setPeriodState: '/openInfo/habilitarGestion',
   },
   commission: {
     postSponsor: '/openInfo/auspiciadores',

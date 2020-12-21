@@ -15,6 +15,8 @@ import {
   NewPeriodRes,
   SetPeriodReq,
   SetPeriodRes,
+  SetPeriodStateReq,
+  SetPeriodStateRes,
 } from './types';
 
 interface AdminAPI {
@@ -26,6 +28,7 @@ interface AdminAPI {
   getPeriods(): Promise<PeriodsRes>;
   postPeriod(data: NewPeriodReq): Promise<NewPeriodRes>;
   activatePeriod(data: SetPeriodReq): Promise<SetPeriodRes>;
+  setPeriodState(data: SetPeriodStateReq): Promise<SetPeriodStateRes>;
 }
 
 export default (axios: AxiosInstance): AdminAPI => ({
@@ -59,6 +62,10 @@ export default (axios: AxiosInstance): AdminAPI => ({
   },
   activatePeriod: async (data) => {
     const resp = await axios.post<SetPeriodRes>(endpoints.admin.setPeriod, data);
+    return resp.data;
+  },
+  setPeriodState: async (data) => {
+    const resp = await axios.post<SetPeriodStateRes>(endpoints.admin.setPeriodState, data);
     return resp.data;
   },
 });
